@@ -1,0 +1,54 @@
+﻿{
+  "categories": [
+    {
+      "key": "landmark_monument",
+      "name": "Landmark / Monument",
+      "description": "Statues, towers, historic buildings, and iconic monuments."
+    },
+    {
+      "key": "cultural_site",
+      "name": "Cultural Site",
+      "description": "Museums, temples, churches, galleries, and culturally significant locations."
+    },
+    {
+      "key": "nature_outdoor",
+      "name": "Nature & Outdoor",
+      "description": "Parks, beaches, mountains, gardens, and outdoor natural attractions."
+    },
+    {
+      "key": "neighborhood_district",
+      "name": "Neighborhood / District",
+      "description": "Walkable areas, historic quarters, and culturally distinct neighborhoods."
+    },
+    {
+      "key": "market_street_life",
+      "name": "Market / Street Life",
+      "description": "Local markets, food streets, bazaars, and lively street scenes."
+    },
+    {
+      "key": "entertainment_nightlife",
+      "name": "Entertainment & Nightlife",
+      "description": "Clubs, live music venues, nightlife zones, and evening entertainment areas."
+    },
+    {
+      "key": "food_experience",
+      "name": "Food Experience",
+      "description": "Iconic food streets, food halls, and food-focused destinations (excluding individual restaurants)."
+    },
+    {
+      "key": "activity_experience",
+      "name": "Activity / Experience",
+      "description": "Walking tours, hikes, boat rides, and hands-on or guided experiences."
+    },
+    {
+      "key": "viewpoint_scenic",
+      "name": "Viewpoint / Scenic Spot",
+      "description": "Observation decks, scenic overlooks, and panoramic viewpoints."
+    },
+    {
+      "key": "event_seasonal",
+      "name": "Event / Seasonal Attraction",
+      "description": "Festivals, seasonal markets, special events, and time-specific attractions."
+    }
+  ]
+}

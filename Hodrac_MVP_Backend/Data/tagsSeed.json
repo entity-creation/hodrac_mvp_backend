@@ -1,0 +1,185 @@
+﻿{
+  "tags": [
+    {
+      "key": "solo_friendly",
+      "name": "Solo-friendly",
+      "description": "Comfortable and enjoyable for solo travelers."
+    },
+    {
+      "key": "group_friendly",
+      "name": "Group-friendly",
+      "description": "Well-suited for groups traveling together."
+    },
+    {
+      "key": "couple_friendly",
+      "name": "Couple-friendly",
+      "description": "Ideal for couples or romantic trips."
+    },
+    {
+      "key": "family_friendly",
+      "name": "Family-friendly",
+      "description": "Suitable for families and children."
+    },
+
+    {
+      "key": "budget_friendly",
+      "name": "Budget-friendly",
+      "description": "Low-cost or free experiences."
+    },
+    {
+      "key": "mid_range",
+      "name": "Mid-range",
+      "description": "Moderately priced experiences."
+    },
+    {
+      "key": "premium",
+      "name": "Premium",
+      "description": "High-end or luxury experiences."
+    },
+
+    {
+      "key": "cultural",
+      "name": "Cultural",
+      "description": "Offers cultural insight, heritage, or traditions."
+    },
+    {
+      "key": "relaxing",
+      "name": "Relaxing",
+      "description": "Calm, peaceful, and low-effort experience."
+    },
+    {
+      "key": "adventurous",
+      "name": "Adventurous",
+      "description": "Involves physical activity, exploration, or adventure."
+    },
+    {
+      "key": "social",
+      "name": "Social",
+      "description": "Encourages interaction with others."
+    },
+    {
+      "key": "romantic",
+      "name": "Romantic",
+      "description": "Atmospheric and appealing for romantic moments."
+    },
+    {
+      "key": "educational",
+      "name": "Educational",
+      "description": "Provides learning opportunities or educational value."
+    },
+
+    {
+      "key": "tourist_hotspot",
+      "name": "Tourist Hotspot",
+      "description": "Very popular and frequently visited by tourists."
+    },
+    {
+      "key": "hidden_gem",
+      "name": "Hidden Gem",
+      "description": "Less-known but highly rewarding to visit."
+    },
+    {
+      "key": "local_favorite",
+      "name": "Local Favorite",
+      "description": "Popular primarily among locals."
+    },
+    {
+      "key": "underrated",
+      "name": "Underrated",
+      "description": "Often overlooked despite its quality."
+    },
+
+    {
+      "key": "safe_area",
+      "name": "Safe Area",
+      "description": "Generally considered safe for visitors."
+    },
+    {
+      "key": "crowded",
+      "name": "Crowded",
+      "description": "Often busy or crowded, especially during peak times."
+    },
+    {
+      "key": "quiet",
+      "name": "Quiet",
+      "description": "Typically calm with fewer crowds."
+    },
+    {
+      "key": "walkable",
+      "name": "Walkable",
+      "description": "Easy to explore on foot."
+    },
+    {
+      "key": "good_short_visit",
+      "name": "Good for Short Visits",
+      "description": "Can be enjoyed in a short amount of time."
+    },
+    {
+      "key": "good_long_stay",
+      "name": "Good for Long Stays",
+      "description": "Worth spending extended time at or nearby."
+    },
+    {
+      "key": "language_barrier_friendly",
+      "name": "Language Barrier Friendly",
+      "description": "Easy to navigate without knowing the local language."
+    },
+
+    {
+      "key": "best_morning",
+      "name": "Best in Morning",
+      "description": "Most enjoyable when visited in the morning."
+    },
+    {
+      "key": "best_evening",
+      "name": "Best in Evening",
+      "description": "Most enjoyable in the evening."
+    },
+    {
+      "key": "best_night",
+      "name": "Best at Night",
+      "description": "Best experienced at night."
+    },
+    {
+      "key": "seasonal",
+      "name": "Seasonal",
+      "description": "Best during specific seasons or times of year."
+    },
+
+    {
+      "key": "food_focused",
+      "name": "Food-focused",
+      "description": "Strong emphasis on food and dining."
+    },
+    {
+      "key": "history",
+      "name": "History",
+      "description": "Strong historical significance."
+    },
+    {
+      "key": "nature",
+      "name": "Nature",
+      "description": "Strong connection to natural elements."
+    },
+    {
+      "key": "photography",
+      "name": "Photography",
+      "description": "Excellent for photography."
+    },
+    {
+      "key": "nightlife",
+      "name": "Nightlife",
+      "description": "Strong nightlife or evening activity appeal."
+    },
+    {
+      "key": "shopping",
+      "name": "Shopping",
+      "description": "Good for shopping experiences."
+    },
+    {
+      "key": "architecture",
+      "name": "Architecture",
+      "description": "Architecturally interesting or significant."
+    }
+  ]
+}
