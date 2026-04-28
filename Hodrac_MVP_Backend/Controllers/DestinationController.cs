@@ -34,11 +34,14 @@ namespace Hodrac_MVP_Backend.Controllers
             return Ok(response);
         }
 
-        [HttpGet("get-by-name")]
-        public async Task<IActionResult> GetByName([FromQuery] string destinationName)
+        [HttpGet("get-by-id/{destinationId}")]
+        public async Task<IActionResult> GetById([FromRoute] string destinationId)
         {
-            var response = await _destinationRepo.GetDestinationByName(destinationName);
-            if(response == null)
+            var isValidId = Guid.TryParse(destinationId, out var id);
+            if(!isValidId)
+                return NotFound();
+            var response = await _destinationRepo.GetDestinationById(id);
+            if (response == null)
             {
                 return NotFound();
             }

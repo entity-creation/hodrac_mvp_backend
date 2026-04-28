@@ -78,6 +78,7 @@ namespace Hodrac_MVP_Backend.Repositories
                     Destinations = w
                         .WishlistDestinations.Select(wd => new ClientDestinationDto
                         {
+                            DestinationId = wd.DestinationId,
                             DestinationName = wd.Destination.DestinationName,
                             DestinationImage = wd.Destination.DestinationImage,
                             Description = wd.Destination.Description,
@@ -153,6 +154,7 @@ namespace Hodrac_MVP_Backend.Repositories
                     Destinations = w
                         .WishlistDestinations.Select(wd => new ClientDestinationDto
                         {
+                            DestinationId = wd.DestinationId,
                             DestinationName = wd.Destination.DestinationName,
                             DestinationImage = wd.Destination.DestinationImage,
                             Description = wd.Destination.Description,

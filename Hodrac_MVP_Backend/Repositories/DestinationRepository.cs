@@ -31,6 +31,7 @@ namespace Hodrac_MVP_Backend.Repositories
             List<ClientDestinationDto> destinationList = await destinationQuery
                 .Select(d => new ClientDestinationDto
                 {
+                    DestinationId = d.DestinationId,
                     DestinationName = d.DestinationName,
                     DestinationImage = d.DestinationImage,
                     Description = d.Description,
@@ -56,10 +57,11 @@ namespace Hodrac_MVP_Backend.Repositories
             return destinationList;
         }
 
-        public async Task<ClientDestinationDto?> GetDestinationByName(string name)
+        public async Task<ClientDestinationDto?> GetDestinationById(Guid destinationId)
         {
-            var destination = await _context.Destinations.AsNoTracking().Where(d => d.DestinationName == name).Select(destination => new ClientDestinationDto
+            var destination = await _context.Destinations.AsNoTracking().Where(d => d.DestinationId == destinationId).Select(destination => new ClientDestinationDto
             {
+                DestinationId = destination.DestinationId,
                 DestinationName = destination.DestinationName,
                 DestinationImage = destination.DestinationImage,
                 Description = destination.Description,
@@ -142,6 +144,7 @@ namespace Hodrac_MVP_Backend.Repositories
             return destinations
                 .Select(d => new ClientDestinationDto
                 {
+                    DestinationId = d.DestinationId,
                     DestinationName = d.DestinationName,
                     DestinationImage = d.DestinationImage,
                     Description = d.Description,

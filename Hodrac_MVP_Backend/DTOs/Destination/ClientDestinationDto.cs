@@ -4,6 +4,7 @@ namespace Hodrac_MVP_Backend.DTOs.Destination
 {
     public class ClientDestinationDto
     {
+        public Guid DestinationId { get; set; }
         public string DestinationName { get; set; } = string.Empty;
         public string DestinationImage { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;

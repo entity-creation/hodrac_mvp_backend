@@ -7,6 +7,6 @@ namespace Hodrac_MVP_Backend.Interfaces
         Task CreateNewDestination(DestinationDto destinationDto);
         Task<List<ClientDestinationDto>> GetAllDestinations();
         Task<List<ClientDestinationDto>> GetDestinationByQuery(DestinationQueryDto query);
-        Task<ClientDestinationDto?> GetDestinationByName(string name);
+        Task<ClientDestinationDto?> GetDestinationById(Guid destinationId);
     }
 }

@@ -272,20 +272,18 @@ namespace Hodrac_MVP_Backend.Data
                 .WithMany(d => d.WishlistDestinations)
                 .HasForeignKey(d => d.DestinationId);
 
-            modelBuilder
-                .Entity<Language>()
-                .HasData(
-                    languageList.Select(language =>
-                    {
-                        return new Language
-                        {
-                            LanguageId = Guid.NewGuid(),
-                            LanguageName = language,
-                        };
-                    })
-                );
-
-            modelBuilder.Entity<City>().HasData();
+            //modelBuilder
+            //    .Entity<Language>()
+            //    .HasData(
+            //        languageList.Select(language =>
+            //        {
+            //            return new Language
+            //            {
+            //                LanguageId = Guid.NewGuid(),
+            //                LanguageName = language,
+            //            };
+            //        })
+            //    );
         }
     }
 }

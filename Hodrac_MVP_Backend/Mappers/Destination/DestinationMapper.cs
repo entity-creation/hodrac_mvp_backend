@@ -52,6 +52,7 @@ namespace Hodrac_MVP_Backend.Mappers.Destination
         {
             return new ClientDestinationDto
             {
+                DestinationId = destination.DestinationId,
                 DestinationName = destination.DestinationName,
                 DestinationImage = destination.DestinationImage,
                 Description = destination.Description,
