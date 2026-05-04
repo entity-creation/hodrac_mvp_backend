@@ -38,7 +38,7 @@ namespace Hodrac_MVP_Backend.Controllers
         public async Task<IActionResult> GetById([FromRoute] string destinationId)
         {
             var isValidId = Guid.TryParse(destinationId, out var id);
-            if(!isValidId)
+            if (!isValidId)
                 return NotFound();
             var response = await _destinationRepo.GetDestinationById(id);
             if (response == null)

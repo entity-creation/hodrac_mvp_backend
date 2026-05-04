@@ -150,511 +150,724 @@ namespace Hodrac_MVP_Backend.Data
         public static async Task SeedWishlist(CustomDbContext context)
         {
             IWishlistRepository wishlistRepo = new WishlistRepository(context);
-            var sanBlasIds = await context
-                .Destinations.Where(d =>
-                    d.DestinationCities.Any(dc => dc.City.CityName == "Guna Yala")
-                )
+            var tokyoIds = await context
+                .Destinations.Where(d => d.DestinationCities.Any(dc => dc.City.CityName == "Tokyo"))
                 .Select(dest => dest.DestinationId)
                 .ToListAsync();
-            Console.WriteLine($"San blas ${sanBlasIds}");
-            var panamaIds = await context
-                .Destinations.Where(d =>
-                    d.DestinationCities.Any(dc => dc.City.CityName == "Panama City")
-                )
-                .Select(dest => dest.DestinationId)
-                .ToListAsync();
-            var bocasIds = await context
-                .Destinations.Where(d =>
-                    d.DestinationCities.Any(dc =>
-                        dc.City.CityName == "Caribbean coast of Panama (Northwest)"
-                    )
-                )
-                .Select(dest => dest.DestinationId)
-                .ToListAsync();
+            //var sanBlasIds = await context
+            //    .Destinations.Where(d =>
+            //        d.DestinationCities.Any(dc => dc.City.CityName == "Guna Yala")
+            //    )
+            //    .Select(dest => dest.DestinationId)
+            //    .ToListAsync();
+            //Console.WriteLine($"San blas ${sanBlasIds}");
+            //var panamaIds = await context
+            //    .Destinations.Where(d =>
+            //        d.DestinationCities.Any(dc => dc.City.CityName == "Panama City")
+            //    )
+            //    .Select(dest => dest.DestinationId)
+            //    .ToListAsync();
+            //var bocasIds = await context
+            //    .Destinations.Where(d =>
+            //        d.DestinationCities.Any(dc =>
+            //            dc.City.CityName == "Caribbean coast of Panama (Northwest)"
+            //        )
+            //    )
+            //    .Select(dest => dest.DestinationId)
+            //    .ToListAsync();
             var guidList = new Dictionary<String, List<Guid>>
             {
-                { "San Blas", sanBlasIds },
-                { "Panama City", panamaIds },
-                { "Bocas", bocasIds },
+                { "Tokyo", tokyoIds },
+                //{ "San Blas", sanBlasIds },
+                //{ "Panama City", panamaIds },
+                //{ "Bocas", bocasIds },
             };
-            List<QueryWishlistDto> wishlists =
-            [
-                new QueryWishlistDto
-                {
-                    WishlistId = Guid.NewGuid(),
-                    WishlistHeroImage =
-                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/san-blas-hero.jpg",
-                    WishlistDescription =
-                        "Turquoise water, hammocks over the sea, and fresh lobster on the sand — no wifi, no worries.",
-                    WishlistName = "San Blas Relax Trip",
-                    ShortStory =
-                        "Spend three days island-hopping through the San Blas archipelago, sleeping in rustic cabins over crystal-clear water, snorkeling shipwrecks, and eating lobster on the sand.",
-                    TotalDays = 3,
-                    PeopleType = "Best for couples / slow travelers",
-                    ItineraryDays =
-                    [
-                        new ClientItineraryDayDto
-                        {
-                            DayNumber = 1,
-                            DayTitle = "Arrival & First Island Escape",
-                        },
-                        new ClientItineraryDayDto
-                        {
-                            DayNumber = 2,
-                            DayTitle = "Sandbars & Lobster Lunch",
-                        },
-                        new ClientItineraryDayDto
-                        {
-                            DayNumber = 3,
-                            DayTitle = "Slow Morning & Return",
-                        },
-                    ],
-                    ItineraryItems =
-                    [
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Drive from Panama City to Cartí",
-                            ItemOrderIndex = 0,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Boat transfer into San Blas",
-                            ItemOrderIndex = 1,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Arrive at Isla Perro",
-                            ItemOrderIndex = 2,
-                            ItemType = "Location",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Snorkel shipwreck reef",
-                            ItemOrderIndex = 3,
-                            ItemType = "Activity",
-                            TimeOfDay = "Noon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Lunch on the island",
-                            ItemOrderIndex = 4,
-                            ItemType = "Activity",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Overnight on Isla Diablo",
-                            ItemOrderIndex = 5,
-                            ItemType = "Location",
-                            TimeOfDay = "Evening",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Morning at The Pool sandbar",
-                            ItemOrderIndex = 0,
-                            ItemType = "Location",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Boat to Banedup Island",
-                            ItemOrderIndex = 1,
-                            ItemType = "Location",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Lunch at Ibin's Beach Restaurant",
-                            ItemOrderIndex = 2,
-                            ItemType = "Activity",
-                            TimeOfDay = "Noon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Afternoon snorkeling near Dutch Cays",
-                            ItemOrderIndex = 3,
-                            ItemType = "Activity",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Overnight overwater cabin",
-                            ItemOrderIndex = 4,
-                            ItemType = "Location",
-                            TimeOfDay = "Evening",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Breakfast by the sea",
-                            ItemOrderIndex = 0,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Visit Kuna village",
-                            ItemOrderIndex = 1,
-                            ItemType = "Location",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Return boat to Cartí",
-                            ItemOrderIndex = 2,
-                            ItemType = "Location",
-                            TimeOfDay = "Noon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Drive back to Panama City",
-                            ItemOrderIndex = 3,
-                            ItemType = "Activity",
-                            TimeOfDay = "Afternoon",
-                        },
-                    ],
-                },
-                new QueryWishlistDto
-                {
-                    WishlistId = Guid.NewGuid(),
-                    WishlistHeroImage =
-                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/panamacity.jpeg",
-                    WishlistDescription =
-                        "History, skyline views, the Panama Canal, and fresh seafood — the perfect introduction.",
-                    WishlistName = "Panama City Highlights (Pacific Side)",
-                    ShortStory =
-                        "Spend two days exploring Panama City’s historic streets, walking along the waterfront skyline, and witnessing one of the greatest engineering feats in the world.",
-                    TotalDays = 2,
-                    PeopleType = "Best for first-time visitors / city lovers",
+            var tokyoWishlist = new QueryWishlistDto
+            {
+                WishlistId = Guid.NewGuid(),
+                WishlistHeroImage =
+                    "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/tokyo.jpg",
+                WishlistName =
+                    "5-Day Tokyo First-Time Trip (Perfect split: shibuya, shinjuku, asakusa)",
+                WishlistDescription =
+                    "Tokyo in 5 days: Experience the perfect mix of chaos and calm with neon lights, ancient temples, street food, and skyline views.",
+                ShortStory =
+                    "Here’s a 5 day Tokyo itinerary perfect for first timers wanting to see it all, from relaxing shrines and culturally rich streets to high octane nightlife and immersive art. Each day is thoughtfully planned to include time for exploration and recovery so you never feel overwhelmed, but still get to see the best of Tokyo.",
+                TotalDays = 5,
+                PeopleType = "Best for solo travelers, couples, and first-time visitors",
 
-                    ItineraryDays =
-                    [
-                        new ClientItineraryDayDto
-                        {
-                            DayNumber = 1,
-                            DayTitle = "Old Town & City Energy",
-                        },
-                        new ClientItineraryDayDto
-                        {
-                            DayNumber = 2,
-                            DayTitle = "Canal & History of Panama",
-                        },
-                    ],
+                ItineraryDays =
+                [
+                    new ClientItineraryDayDto
+                    {
+                        DayNumber = 1,
+                        DayTitle = "Harajuku & Shibuya — Tokyo Energy Introduction",
+                    },
+                    new ClientItineraryDayDto
+                    {
+                        DayNumber = 2,
+                        DayTitle = "Asakusa — Culture & Slow Exploration",
+                    },
+                    new ClientItineraryDayDto
+                    {
+                        DayNumber = 3,
+                        DayTitle = "Shinjuku — City Balance & Nightlife",
+                    },
+                    new ClientItineraryDayDto
+                    {
+                        DayNumber = 4,
+                        DayTitle = "Central Tokyo — Food & Immersive Experience",
+                    },
+                    new ClientItineraryDayDto
+                    {
+                        DayNumber = 5,
+                        DayTitle = "Flex Day — Personalize Your Tokyo Experience",
+                    },
+                ],
 
-                    ItineraryItems =
-                    [
-                        // DAY 1
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Arrive at Casco Viejo",
-                            ItemOrderIndex = 0,
-                            ItemType = "Location",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Walk cobblestone streets and explore plazas",
-                            ItemOrderIndex = 1,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Visit Palacio de las Garzas",
-                            ItemOrderIndex = 2,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Lunch at Mercado de Mariscos",
-                            ItemOrderIndex = 3,
-                            ItemType = "Location",
-                            TimeOfDay = "Noon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Walk along Cinta Costera",
-                            ItemOrderIndex = 4,
-                            ItemType = "Location",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Sunset overlooking Panama Bay",
-                            ItemOrderIndex = 5,
-                            ItemType = "Activity",
-                            TimeOfDay = "Evening",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Rooftop bar in Casco Viejo",
-                            ItemOrderIndex = 6,
-                            ItemType = "Activity",
-                            TimeOfDay = "Night",
-                        },
-                        // DAY 2
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Visit Panama Canal (Miraflores Locks)",
-                            ItemOrderIndex = 0,
-                            ItemType = "Location",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Watch ships pass through the locks",
-                            ItemOrderIndex = 1,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Explore the Panama Canal Museum",
-                            ItemOrderIndex = 2,
-                            ItemType = "Activity",
-                            TimeOfDay = "Noon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Lunch near the canal",
-                            ItemOrderIndex = 3,
-                            ItemType = "Activity",
-                            TimeOfDay = "Noon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Visit Biomuseo",
-                            ItemOrderIndex = 4,
-                            ItemType = "Location",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Panoramic city and canal views",
-                            ItemOrderIndex = 5,
-                            ItemType = "Activity",
-                            TimeOfDay = "Evening",
-                        },
-                    ],
-                },
-                new QueryWishlistDto
-                {
-                    WishlistId = Guid.NewGuid(),
-                    WishlistHeroImage =
-                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/bocas.jpeg",
-                    WishlistDescription =
-                        "Caribbean rhythm, boat parties, and world-class waves — Panama’s wild side.",
-                    WishlistName = "Bocas del Toro Party & Surf",
-                    ShortStory =
-                        "Spend four days hopping between islands, surfing tropical waves, and partying on boats with travelers from around the world.",
-                    TotalDays = 4,
-                    PeopleType = "Best for backpackers / party travelers / surfers",
+                ItineraryItems =
+                [
+                    // DAY 1
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 1,
+                        ItemDescription = "Visit Meiji Shrine (quiet forest shrine)",
+                        ItemOrderIndex = 0,
+                        ItemType = "Location",
+                        TimeOfDay = "Morning",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 1,
+                        ItemDescription = "Explore Takeshita Street (street food & youth culture)",
+                        ItemOrderIndex = 1,
+                        ItemType = "Location",
+                        TimeOfDay = "Afternoon",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 1,
+                        ItemDescription = "Walk through Cat Street (local boutiques & cafes)",
+                        ItemOrderIndex = 2,
+                        ItemType = "Location",
+                        TimeOfDay = "Afternoon",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 1,
+                        ItemDescription = "Experience Shibuya Crossing",
+                        ItemOrderIndex = 3,
+                        ItemType = "Location",
+                        TimeOfDay = "Evening",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 1,
+                        ItemDescription = "Shibuya Sky (sunset to night city view)",
+                        ItemOrderIndex = 4,
+                        ItemType = "Location",
+                        TimeOfDay = "Evening",
+                    },
+                    // DAY 2
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 2,
+                        ItemDescription = "Visit Senso-ji Temple",
+                        ItemOrderIndex = 0,
+                        ItemType = "Location",
+                        TimeOfDay = "Morning",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 2,
+                        ItemDescription = "Walk through Kaminarimon Gate",
+                        ItemOrderIndex = 1,
+                        ItemType = "Location",
+                        TimeOfDay = "Morning",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 2,
+                        ItemDescription = "Explore Asakusa streets (souvenirs & food stalls)",
+                        ItemOrderIndex = 2,
+                        ItemType = "Location",
+                        TimeOfDay = "Afternoon",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 2,
+                        ItemDescription = "Relax along Sumida River walk",
+                        ItemOrderIndex = 3,
+                        ItemType = "Location",
+                        TimeOfDay = "Evening",
+                    },
+                    // DAY 3
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 3,
+                        ItemDescription = "Walk through Shinjuku Gyoen National Garden",
+                        ItemOrderIndex = 0,
+                        ItemType = "Location",
+                        TimeOfDay = "Morning",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 3,
+                        ItemDescription =
+                            "Tokyo Metropolitan Government Building (free skyline view)",
+                        ItemOrderIndex = 1,
+                        ItemType = "Location",
+                        TimeOfDay = "Afternoon",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 3,
+                        ItemDescription = "Explore Golden Gai (small bars & local nightlife)",
+                        ItemOrderIndex = 2,
+                        ItemType = "Location",
+                        TimeOfDay = "Evening",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 3,
+                        ItemDescription = "Visit Kabukicho (neon nightlife district)",
+                        ItemOrderIndex = 3,
+                        ItemType = "Location",
+                        TimeOfDay = "Evening",
+                    },
+                    // DAY 4
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 4,
+                        ItemDescription = "Food crawl at Tsukiji Outer Market",
+                        ItemOrderIndex = 0,
+                        ItemType = "Location",
+                        TimeOfDay = "Morning",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 4,
+                        ItemDescription = "Visit teamLab Borderless (immersive digital art)",
+                        ItemOrderIndex = 1,
+                        ItemType = "Location",
+                        TimeOfDay = "Afternoon",
+                    },
+                    // DAY 5 (FLEX)
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 5,
+                        ItemDescription = "Option A: Tokyo Disney",
+                        ItemOrderIndex = 0,
+                        ItemType = "Activity",
+                        TimeOfDay = "Morning",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 5,
+                        ItemDescription =
+                            "Option B: Explore Akihabara (anime, arcades, electronics)",
+                        ItemOrderIndex = 1,
+                        ItemType = "Location",
+                        TimeOfDay = "Morning",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 5,
+                        ItemDescription = "Last-minute shopping",
+                        ItemOrderIndex = 2,
+                        ItemType = "Activity",
+                        TimeOfDay = "Afternoon",
+                    },
+                    new ClientItineraryItemDto
+                    {
+                        DayNumber = 5,
+                        ItemDescription = "Farewell dinner in Tokyo",
+                        ItemOrderIndex = 3,
+                        ItemType = "Activity",
+                        TimeOfDay = "Evening",
+                    },
+                ],
+            };
+            //List<QueryWishlistDto> wishlists =
+            //[
+            //    new QueryWishlistDto
+            //    {
+            //        WishlistId = Guid.NewGuid(),
+            //        WishlistHeroImage =
+            //            "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/san-blas-hero.jpg",
+            //        WishlistDescription =
+            //            "Turquoise water, hammocks over the sea, and fresh lobster on the sand — no wifi, no worries.",
+            //        WishlistName = "San Blas Relax Trip",
+            //        ShortStory =
+            //            "Spend three days island-hopping through the San Blas archipelago, sleeping in rustic cabins over crystal-clear water, snorkeling shipwrecks, and eating lobster on the sand.",
+            //        TotalDays = 3,
+            //        PeopleType = "Best for couples / slow travelers",
+            //        ItineraryDays =
+            //        [
+            //            new ClientItineraryDayDto
+            //            {
+            //                DayNumber = 1,
+            //                DayTitle = "Arrival & First Island Escape",
+            //            },
+            //            new ClientItineraryDayDto
+            //            {
+            //                DayNumber = 2,
+            //                DayTitle = "Sandbars & Lobster Lunch",
+            //            },
+            //            new ClientItineraryDayDto
+            //            {
+            //                DayNumber = 3,
+            //                DayTitle = "Slow Morning & Return",
+            //            },
+            //        ],
+            //        ItineraryItems =
+            //        [
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Drive from Panama City to Cartí",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Boat transfer into San Blas",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Arrive at Isla Perro",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Snorkel shipwreck reef",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Noon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Lunch on the island",
+            //                ItemOrderIndex = 4,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Overnight on Isla Diablo",
+            //                ItemOrderIndex = 5,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Evening",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Morning at The Pool sandbar",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Boat to Banedup Island",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Lunch at Ibin's Beach Restaurant",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Noon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Afternoon snorkeling near Dutch Cays",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Overnight overwater cabin",
+            //                ItemOrderIndex = 4,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Evening",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Breakfast by the sea",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Visit Kuna village",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Return boat to Cartí",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Noon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Drive back to Panama City",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //        ],
+            //    },
+            //    new QueryWishlistDto
+            //    {
+            //        WishlistId = Guid.NewGuid(),
+            //        WishlistHeroImage =
+            //            "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/panamacity.jpeg",
+            //        WishlistDescription =
+            //            "History, skyline views, the Panama Canal, and fresh seafood — the perfect introduction.",
+            //        WishlistName = "Panama City Highlights (Pacific Side)",
+            //        ShortStory =
+            //            "Spend two days exploring Panama City’s historic streets, walking along the waterfront skyline, and witnessing one of the greatest engineering feats in the world.",
+            //        TotalDays = 2,
+            //        PeopleType = "Best for first-time visitors / city lovers",
 
-                    ItineraryDays =
-                    [
-                        new ClientItineraryDayDto
-                        {
-                            DayNumber = 1,
-                            DayTitle = "Arrival & Island Vibes",
-                        },
-                        new ClientItineraryDayDto
-                        {
-                            DayNumber = 2,
-                            DayTitle = "Filthy Friday Party",
-                        },
-                        new ClientItineraryDayDto { DayNumber = 3, DayTitle = "Beaches & Surf" },
-                        new ClientItineraryDayDto
-                        {
-                            DayNumber = 4,
-                            DayTitle = "Snorkel & Departure",
-                        },
-                    ],
+            //        ItineraryDays =
+            //        [
+            //            new ClientItineraryDayDto
+            //            {
+            //                DayNumber = 1,
+            //                DayTitle = "Old Town & City Energy",
+            //            },
+            //            new ClientItineraryDayDto
+            //            {
+            //                DayNumber = 2,
+            //                DayTitle = "Canal & History of Panama",
+            //            },
+            //        ],
 
-                    ItineraryItems =
-                    [
-                        // DAY 1
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Arrive in Bocas Town (Isla Colón)",
-                            ItemOrderIndex = 0,
-                            ItemType = "Location",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Check into hostel or hotel",
-                            ItemOrderIndex = 1,
-                            ItemType = "Activity",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Explore town and waterfront",
-                            ItemOrderIndex = 2,
-                            ItemType = "Activity",
-                            TimeOfDay = "Evening",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 1,
-                            ItemDescription = "Dinner and drinks in Bocas Town",
-                            ItemOrderIndex = 3,
-                            ItemType = "Activity",
-                            TimeOfDay = "Night",
-                        },
-                        // DAY 2
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Join Filthy Friday boat party",
-                            ItemOrderIndex = 0,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Island hopping with drinks and music",
-                            ItemOrderIndex = 1,
-                            ItemType = "Activity",
-                            TimeOfDay = "Noon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Swim stops in crystal clear water",
-                            ItemOrderIndex = 2,
-                            ItemType = "Activity",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 2,
-                            ItemDescription = "Return and recover in town",
-                            ItemOrderIndex = 3,
-                            ItemType = "Activity",
-                            TimeOfDay = "Evening",
-                        },
-                        // DAY 3
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Morning surf at Red Frog Beach",
-                            ItemOrderIndex = 0,
-                            ItemType = "Location",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Explore jungle and find red frogs",
-                            ItemOrderIndex = 1,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Visit Starfish Beach",
-                            ItemOrderIndex = 2,
-                            ItemType = "Location",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Relax in shallow water and hammocks",
-                            ItemOrderIndex = 3,
-                            ItemType = "Activity",
-                            TimeOfDay = "Afternoon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 3,
-                            ItemDescription = "Sunset at Wizard Beach",
-                            ItemOrderIndex = 4,
-                            ItemType = "Location",
-                            TimeOfDay = "Evening",
-                        },
-                        // DAY 4
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 4,
-                            ItemDescription = "Boat to Cayos Zapatilla",
-                            ItemOrderIndex = 0,
-                            ItemType = "Location",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 4,
-                            ItemDescription = "Snorkel coral reefs and swim",
-                            ItemOrderIndex = 1,
-                            ItemType = "Activity",
-                            TimeOfDay = "Morning",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 4,
-                            ItemDescription = "Relax on the beach",
-                            ItemOrderIndex = 2,
-                            ItemType = "Activity",
-                            TimeOfDay = "Noon",
-                        },
-                        new ClientItineraryItemDto
-                        {
-                            DayNumber = 4,
-                            ItemDescription = "Return to Bocas Town and depart",
-                            ItemOrderIndex = 3,
-                            ItemType = "Activity",
-                            TimeOfDay = "Afternoon",
-                        },
-                    ],
-                },
-            ];
+            //        ItineraryItems =
+            //        [
+            //            // DAY 1
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Arrive at Casco Viejo",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Walk cobblestone streets and explore plazas",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Visit Palacio de las Garzas",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Lunch at Mercado de Mariscos",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Noon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Walk along Cinta Costera",
+            //                ItemOrderIndex = 4,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Sunset overlooking Panama Bay",
+            //                ItemOrderIndex = 5,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Evening",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Rooftop bar in Casco Viejo",
+            //                ItemOrderIndex = 6,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Night",
+            //            },
+            //            // DAY 2
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Visit Panama Canal (Miraflores Locks)",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Watch ships pass through the locks",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Explore the Panama Canal Museum",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Noon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Lunch near the canal",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Noon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Visit Biomuseo",
+            //                ItemOrderIndex = 4,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Panoramic city and canal views",
+            //                ItemOrderIndex = 5,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Evening",
+            //            },
+            //        ],
+            //    },
+            //    new QueryWishlistDto
+            //    {
+            //        WishlistId = Guid.NewGuid(),
+            //        WishlistHeroImage =
+            //            "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/bocas.jpeg",
+            //        WishlistDescription =
+            //            "Caribbean rhythm, boat parties, and world-class waves — Panama’s wild side.",
+            //        WishlistName = "Bocas del Toro Party & Surf",
+            //        ShortStory =
+            //            "Spend four days hopping between islands, surfing tropical waves, and partying on boats with travelers from around the world.",
+            //        TotalDays = 4,
+            //        PeopleType = "Best for backpackers / party travelers / surfers",
 
-            if (await context.Wishlists.AnyAsync())
-                return;
+            //        ItineraryDays =
+            //        [
+            //            new ClientItineraryDayDto
+            //            {
+            //                DayNumber = 1,
+            //                DayTitle = "Arrival & Island Vibes",
+            //            },
+            //            new ClientItineraryDayDto
+            //            {
+            //                DayNumber = 2,
+            //                DayTitle = "Filthy Friday Party",
+            //            },
+            //            new ClientItineraryDayDto { DayNumber = 3, DayTitle = "Beaches & Surf" },
+            //            new ClientItineraryDayDto
+            //            {
+            //                DayNumber = 4,
+            //                DayTitle = "Snorkel & Departure",
+            //            },
+            //        ],
 
-            await wishlistRepo.CreateNewWishlist(wishlists[0], guidList["San Blas"]);
-            await wishlistRepo.CreateNewWishlist(wishlists[1], guidList["Panama City"]);
-            await wishlistRepo.CreateNewWishlist(wishlists[2], guidList["Bocas"]);
+            //        ItineraryItems =
+            //        [
+            //            // DAY 1
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Arrive in Bocas Town (Isla Colón)",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Check into hostel or hotel",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Explore town and waterfront",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Evening",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 1,
+            //                ItemDescription = "Dinner and drinks in Bocas Town",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Night",
+            //            },
+            //            // DAY 2
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Join Filthy Friday boat party",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Island hopping with drinks and music",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Noon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Swim stops in crystal clear water",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 2,
+            //                ItemDescription = "Return and recover in town",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Evening",
+            //            },
+            //            // DAY 3
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Morning surf at Red Frog Beach",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Explore jungle and find red frogs",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Visit Starfish Beach",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Relax in shallow water and hammocks",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 3,
+            //                ItemDescription = "Sunset at Wizard Beach",
+            //                ItemOrderIndex = 4,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Evening",
+            //            },
+            //            // DAY 4
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 4,
+            //                ItemDescription = "Boat to Cayos Zapatilla",
+            //                ItemOrderIndex = 0,
+            //                ItemType = "Location",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 4,
+            //                ItemDescription = "Snorkel coral reefs and swim",
+            //                ItemOrderIndex = 1,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Morning",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 4,
+            //                ItemDescription = "Relax on the beach",
+            //                ItemOrderIndex = 2,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Noon",
+            //            },
+            //            new ClientItineraryItemDto
+            //            {
+            //                DayNumber = 4,
+            //                ItemDescription = "Return to Bocas Town and depart",
+            //                ItemOrderIndex = 3,
+            //                ItemType = "Activity",
+            //                TimeOfDay = "Afternoon",
+            //            },
+            //        ],
+            //    },
+            //];
+
+            //if (await context.Wishlists.AnyAsync())
+            //    return;
+
+            await wishlistRepo.CreateNewWishlist(tokyoWishlist, guidList["Tokyo"]);
+
+            //await wishlistRepo.CreateNewWishlist(wishlists[0], guidList["San Blas"]);
+            //await wishlistRepo.CreateNewWishlist(wishlists[1], guidList["Panama City"]);
+            //await wishlistRepo.CreateNewWishlist(wishlists[2], guidList["Bocas"]);
         }
 
         public static async Task SeedDestination(CustomDbContext context)
@@ -667,8 +880,8 @@ namespace Hodrac_MVP_Backend.Data
                 .Countries.Where(c => c.CountryName == "Panama")
                 .Select(c => c.CountryId)
                 .FirstOrDefaultAsync();
-            var osakaCityIds = await context
-                .Cities.Where(c => c.CityName == "Osaka")
+            var tokyoCityIds = await context
+                .Cities.Where(c => c.CityName == "Tokyo")
                 .Select(c => c.CityId)
                 .ToListAsync();
             var gunaCityIds = await context
@@ -684,7 +897,7 @@ namespace Hodrac_MVP_Backend.Data
                 .Select(c => c.CityId)
                 .ToListAsync();
             var japanLangIds = await context
-                .Languages.Where(l => l.LanguageName == "English" || l.LanguageName == "Japanese")
+                .Languages.Where(l => l.LanguageName == "Japanese")
                 .Select(l => l.LanguageId)
                 .ToListAsync();
             var panamaLangIds = await context
@@ -884,27 +1097,258 @@ namespace Hodrac_MVP_Backend.Data
                 .Select(t => t.TagId)
                 .ToListAsync();
 
-            var destinationDto = new DestinationDto
-            {
-                DestinationName = "Kuromon Market",
-                DestinationImage = "/images/destinations/kuromon_market.jpg",
-                Description = new DescriptionJsonDto { },
-                BestPeriodToVisit = new List<TravelPeriod>
-                {
-                    TravelPeriod.AprToJun,
-                    TravelPeriod.OctToDec,
-                },
-                MaxCost = 30,
-                MinCost = 15,
-                SafetyLevel = 10,
-                TimeZone = "Japan Standard Time",
-                CountryId = japanCountryId,
-                CityIds = osakaCityIds,
-                LanguageIds = japanLangIds,
-                CurrencyIds = japanCurrencyId,
-                CategoryIds = kuromonCatIds,
-                TagIds = kuromonTagIds,
-            };
+            //var destinationDto = new DestinationDto
+            //{
+            //    DestinationName = "Kuromon Market",
+            //    DestinationImage = "/images/destinations/kuromon_market.jpg",
+            //    Description = new DescriptionJsonDto { },
+            //    BestPeriodToVisit = new List<TravelPeriod>
+            //    {
+            //        TravelPeriod.AprToJun,
+            //        TravelPeriod.OctToDec,
+            //    },
+            //    MaxCost = 30,
+            //    MinCost = 15,
+            //    SafetyLevel = 10,
+            //    TimeZone = "Japan Standard Time",
+            //    CountryId = japanCountryId,
+            //    CityIds = osakaCityIds,
+            //    LanguageIds = japanLangIds,
+            //    CurrencyIds = japanCurrencyId,
+            //    CategoryIds = kuromonCatIds,
+            //    TagIds = kuromonTagIds,
+            //};
+            var meijiCatIds = await context
+                .Categories.Where(c => c.Key == "cultural_site")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var meijiTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "cultural"
+                    || t.Key == "walkable"
+                    || t.Key == "history"
+                    || t.Key == "budget_friendly"
+                    || t.Key == "photography"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var takeshitaCatIds = await context
+                .Categories.Where(c => c.Key == "neighborhood_district")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var takeshitaTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "cultural"
+                    || t.Key == "walkable"
+                    || t.Key == "shopping"
+                    || t.Key == "budget_friendly"
+                    || t.Key == "tourist_hotspot"
+                    || t.Key == "crowded"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var shibuyaSkyCatIds = await context
+                .Categories.Where(c => c.Key == "viewpoint_scenic_spot")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var shibuyaSkyTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "architecture" || t.Key == "photography" || t.Key == "tourist_hotspot"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var crossingCatIds = await context
+                .Categories.Where(c => c.Key == "landmark_monument")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var crossingTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "walkable"
+                    || t.Key == "crowded"
+                    || t.Key == "tourist_hotspot"
+                    || t.Key == "photography"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var catStreetCatIds = await context
+                .Categories.Where(c => c.Key == "neighborhood_district")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var catStreetTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "walkable"
+                    || t.Key == "shopping"
+                    || t.Key == "premium"
+                    || t.Key == "tourist_hotspot"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var riverwalkCatIds = await context
+                .Categories.Where(c => c.Key == "activity_experience")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var riverwalkTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "walkable"
+                    || t.Key == "romantic"
+                    || t.Key == "photography"
+                    || t.Key == "couple_friendly"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var asakusaStreetsCatIds = await context
+                .Categories.Where(c => c.Key == "market_street_life")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var asakusaStreetsTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "walkable"
+                    || t.Key == "crowded"
+                    || t.Key == "tourist_hotspot"
+                    || t.Key == "shopping"
+                    || t.Key == "food_focused"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var kaminarimonCatIds = await context
+                .Categories.Where(c => c.Key == "landmark_monument")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var kaminarimonTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "walkable"
+                    || t.Key == "crowded"
+                    || t.Key == "tourist_hotspot"
+                    || t.Key == "photography"
+                    || t.Key == "cultural"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var sensojiCatIds = await context
+                .Categories.Where(c => c.Key == "cultural_site")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+            var tsukijiCatIds = await context
+                .Categories.Where(c => c.Key == "market_street_life")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var tsukijiTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "crowded"
+                    || t.Key == "tourist_hotspot"
+                    || t.Key == "food_focused"
+                    || t.Key == "walkable"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+
+            var sensojiTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "walkable"
+                    || t.Key == "crowded"
+                    || t.Key == "tourist_hotspot"
+                    || t.Key == "cultural"
+                    || t.Key == "shopping"
+                    || t.Key == "photography"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var kabukichoCatIds = await context
+                .Categories.Where(c => c.Key == "entertainment_nightlife")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var kabukichoTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "nightlife" || t.Key == "best_at_night" || t.Key == "social"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var goldenGaiCatIds = await context
+                .Categories.Where(c => c.Key == "neighborhood_district")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var goldenGaiTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "nightlife"
+                    || t.Key == "best_at_night"
+                    || t.Key == "group_friendly"
+                    || t.Key == "social"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var gyoenCatIds = await context
+                .Categories.Where(c => c.Key == "nature_outdoor")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var gyoenTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "walkable"
+                    || t.Key == "photography"
+                    || t.Key == "nature"
+                    || t.Key == "history"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+
+            var metroGovCatIds = await context
+                .Categories.Where(c => c.Key == "viewpoint_scenic_spot")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var metroGovTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "photography" || t.Key == "budget_friendly" || t.Key == "architecture"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var akihabaraCatIds = await context
+                .Categories.Where(c => c.Key == "neighborhood_district")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var akihabaraTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "cultural" || t.Key == "shopping" || t.Key == "tourist_hotspot"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var disneyCatIds = await context
+                .Categories.Where(c => c.Key == "activity_experience")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var disneyTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "family_friendly"
+                    || t.Key == "premium"
+                    || t.Key == "tourist_hotspot"
+                    || t.Key == "crowded"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
+            var teamlabCatIds = await context
+                .Categories.Where(c => c.Key == "viewpoint_scenic_spot")
+                .Select(c => c.CategoryId)
+                .ToListAsync();
+
+            var teamlabTagIds = await context
+                .Tags.Where(t =>
+                    t.Key == "architecture" || t.Key == "photography" || t.Key == "tourist_hotspot"
+                )
+                .Select(t => t.TagId)
+                .ToListAsync();
 
             List<DestinationDto> destinationList =
             [
@@ -1769,7 +2213,903 @@ namespace Hodrac_MVP_Backend.Data
                 },
             ];
 
-            var newDestinationList = destinationList
+            List<DestinationDto> tokyoDestinationList =
+            [
+                // 1. Meiji Shrine
+                new DestinationDto
+                {
+                    DestinationName = "Meiji Shrine",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/meiji.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Have you ever noticed how the air changes when you step off a busy street and into a forest?\n\nIn Tokyo, that transition happens in a single step. One moment you are in Harajuku, surrounded by neon lights and the frantic energy of the city. The next, you are walking under a massive wooden gate, and the sound of traffic is replaced by the crunch of gravel under your boots.\n\nThis is Meiji Jingu. It isn't just a shrine; it's a 170-acre heartbeat of silence in the middle of the world's most populated city.\n\nWhat to Do:\n\nWalking Tour: Follow a self-guided route through the 40-acre historic district to see the Metropolitan Cathedral, which took over 100 years to build.\n\nMuseums: Visit the Panama Canal Museum or the Museo de la Mola to understand the engineering and cultural foundations of the country.\n\nGovernmental Sights: Walk past the Palacio de las Garzas, the official residence and office of the President.\n\nSunset Rituals: Head to one of the many rooftop bars to watch the sunset paint the modern city skyline gold while you sit in the historic heart.\n\nCoffee Culture: Sample Panama's world-famous Geisha coffee at locally-owned specialty shops.",
+                        Directions =
+                            "Best Station: Harajuku Station (JR Yamanote Line) or Meiji-jingumae Station (Chiyoda & Fukutoku Lines).\n\nKey Exit: From JR Harajuku Station: Take the Omotesando Exit. From Meiji-jingumae Station: Take Exit 2.\n\nThe Direction Walk: Once you step out of the station, look for the large stone bridge (Jingu-bashi). Cross the bridge and you will immediately see a massive wooden Torii gate nestled in the forest. Enter through the gate; the main shrine buildings are about a 10-minute walk along the shaded forest path.\n\nAddress for Taxi: 東京都渋谷区代々木神園町1-1",
+                        WhatToKnow =
+                            "Currency Conversion: (Based on a rounded rate of $1 = 150¥) – Main Grounds: Free. Inner Garden: 500¥ (~$3.33 USD). Meiji Jingu Museum: 1,000¥ (~$6.67 USD).\n\nShinto Rituals: You can write your wishes on an ema (wooden tablet) or purchase an omamori (amulet) for protection. There is English signage to guide you through the 2-bow, 2-clap, 1-bow prayer ritual.\n\nPhotographic Etiquette: Photography is generally permitted on the grounds but is strictly forbidden inside the main sanctuary buildings and certain museum exhibits.\n\nPlanning Tip: Make sure to carry physical cash (specifically 1,000 yen notes and coins). While the Museum and some larger shops may take cards, the garden entrance and ritual items (charms, tablets, fortunes) are strictly cash-only.\n\nPro-Tip: If you see a wedding procession, it is polite to stand to the side and observe quietly. It is a frequent and beautiful occurrence at Meiji Jingu, especially on weekend mornings.",
+                        ThingsToBeWaryOf =
+                            "Gravel Paths: The primary paths are made of thick gravel. While beautiful, they can be tiring for those in thin-soled shoes and difficult for strollers or wheelchairs with small wheels.\n\nThe New Year Rush: Between January 1st and 3rd, the shrine sees over 3 million visitors. Avoid these dates unless you specifically want to experience the intense \"hatsumode\" (first prayer) crowds.\n\nSunrise/Sunset Hours: The shrine does not have fixed clock hours; it opens at sunrise and closes at sunset. Check the local sun schedule if you are visiting in the late afternoon.\n\nEtiquette: Avoid standing directly in the center of the Torii gates or the center of the path, as this space is reserved for the deities.",
+                        LocalPerspective =
+                            "The \"Power Spot\": Visit Kiyomasa's Well in the Inner Garden. Locals consider it a source of positive, restorative energy. It is especially popular in the middle of June when the irises are in bloom.\n\nWedding Watching: If you visit on a weekend morning, keep your eyes peeled for a traditional Shinto wedding procession. You will often see the bride in a white kimono (shiromuku) led by priests under a large red umbrella.\n\nEnglish Ease: The shrine is very tourist-friendly with extensive English signage explaining rituals, such as how to purify your hands at the temizuya or make an offering.",
+                        HiddenCost =
+                            "The Inner Garden Maintenance Fee: 500¥ (~$3.33 USD). To access the famous iris gardens and Kiyomasa's Well (the \"power spot\"), you must pay a maintenance fee at the garden entrance.\n\nMeiji Jingu Museum: 1,000¥ (~$6.67 USD). This modern facility houses treasures and personal effects of the Emperor and Empress. High school students and younger are 900¥ (~$6.00 USD).\n\nSaisen (Offertory Coins): 5¥ to 100¥+ (~$0.03 – $0.67 USD). It is customary to toss a coin into the wooden offering box (saisen-bako) before praying. The 5-yen coin is preferred as \"go-en\" (5 yen) is a homophone for \"honorable good luck\" or \"connection\".\n\nEma (Wooden Prayer Tablets): ~500¥ to 1,000¥ (~$3.33 – $6.67 USD). If you wish to write a prayer or goal to hang at the shrine, you must purchase a wooden tablet at the amulet stall.\n\nOmamori (Amulets & Charms): ~500¥ to 1,500¥ (~$3.33 – $10.00 USD). These colorful silk pouches for protection, health, or academic success are popular purchases but can be expensive if buying several.\n\nOmikuji (Fortunes): ~100¥ to 200¥ (~$0.67 – $1.33 USD). Unlike many shrines, Meiji Jingu's fortunes are unique \"Waka\" poems written by the Emperor and Empress rather than \"good/bad luck\" predictions.\n\nGoshuin (Temple Stamps): ~300¥ to 500¥ (~$2.00 – $3.33 USD). If you collect temple stamps in a Goshuin-cho book, there is a fee for the priest to hand-calligraph the shrine's seal for you.\n\nCoin-Operated Lockers: 300¥ to 700¥ (~$2.00 – $4.67 USD). If you are coming directly from the airport or have heavy bags, you will likely need to use lockers at Harajuku or Yoyogi stations, as large luggage is difficult to navigate on the thick gravel paths.\n\nThe \"Gravel Toll\": While not a direct fee, the thick gravel paths can be hard on shoes. Many visitors find themselves buying more supportive footwear or paying for a taxi later in the day due to foot fatigue.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Yoyogi Park: Located directly adjacent, this park hosts weekend food fairs, flea markets, and rockabilly dance performances.",
+                            "Harajuku (Takeshita Street): The epicenter of teen fashion and \"Kawaii\" culture is just steps from the southern torii gate.",
+                            "Omotesando: Known as Tokyo's \"Champs-Élysées,\" this nearby boulevard offers high-end shopping and stunning modern architecture.",
+                            "Shibuya Crossing: A 15-minute walk or one train stop away, providing a sharp contrast between the shrine's tranquility and the world's busiest intersection.",
+                        },
+                        BestTimeToVisit =
+                            "Spring Grand Festival (Late April – Early May): The best time to witness traditional ceremonial music and dances.\n\nMid-June: Specifically for the Inner Garden, as this is when the expansive iris beds are in full bloom.\n\nAutumn: The forest provides a cool, shaded canopy during Tokyo's humid months, and the colors of the surrounding Yoyogi Park are beautiful in late November.\n\nDaily Timing: Arrive at sunrise (typically around 5:00 AM–6:00 AM) to experience the forest in near-total silence before the tour groups arrive at 10:00 AM.",
+                        crowdLevel =
+                            "High (8/10): As one of Tokyo's top landmarks, it is consistently busy. Avoid: January 1st–3rd, when over 3 million people visit for New Year's prayers (Hatsumode), making the paths nearly impassable. Weekends: Expect a high volume of local families and traditional wedding processions.",
+                        Accessibility =
+                            "Rating: 8/10\n\nThe Terrain: The paths are wide and flat but covered in heavy gravel. This can be physically taxing for long walks and difficult for strollers or wheelchairs with thin tires.\n\nFacilities: Modern, accessible restrooms are located near the main sanctuary and the museum.\n\nTransit: Both Harajuku and Meiji-jingumae stations have elevator access, making the journey to the shrine gates very accessible.",
+                        IdealDuration =
+                            "1.5 to 2.5 Hours\n\nThe walk from the entrance to the main complex takes about 10–15 minutes each way. Allow an extra 45 minutes if you plan to explore the Inner Garden and Kiyomasa's Well.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 4,
+                    MinCost = 0,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = meijiCatIds,
+                    TagIds = meijiTagIds,
+                },
+                // 2. Takeshita Street
+                new DestinationDto
+                {
+                    DestinationName = "Takeshita Street",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/takeshita.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Takeshita Street is the 350-meter-long, high-energy artery of Harajuku and the undisputed global epicenter of \"Kawaii\" (cute) culture. Located directly across from the historic Harajuku Station, this pedestrian paradise is a sensory explosion of neon signs, J-pop soundtracks, and trend-setting youth fashion. From gothic lolita and \"yume-kawaii\" pastels to independent designer boutiques and massive cotton candy, the street is a living runway where individuality is the only requirement. Even if you aren't shopping for a new wardrobe, the street serves as a vibrant theater of modern Japanese subcultures.\n\nWhat to Do:\n\nThe Crepe Ritual: Visit Marion Crepes or Santa Monica Crepes. In Harajuku, holding a paper-wrapped crepe filled with whipped cream and fruit is the unofficial entry requirement.\n\nPurikura Memories: Head to a photo booth basement. These aren't normal booths; they offer filters that enlarge your eyes, smooth your skin, and let you add digital \"kawaii\" stickers to your prints.\n\nFashion Hunting: Explore shops like WEGO or independent designer boutiques. You'll find everything from vintage \"Ura-Harajuku\" streetwear to \"Yume-Kawaii\" (dreamy cute) pastel aesthetics.\n\nInstagrammable Snacking: Look for the massive, multi-colored rainbow cotton candy at Totti Candy Factory or the super-long soft-serve ice cream that defies gravity.\n\nOtaku Exploration: Explore the many shops selling anime merchandising, limited-edition figures, and streetwear that draws \"otaku\" and anime fans from across the globe.\n\nPeople Watching: Find a spot near the entrance to simply observe the \"Harajuku girls\" and fashionistas who treat the sidewalk like a high-fashion runway.",
+                        Directions =
+                            "Best Station: JR Harajuku Station (Yamanote Line) or Meiji-jingumae Station (Chiyoda & Fukutoshin Lines).\n\nKey Exit: Exit through the Takeshita Exit at JR Harajuku Station.\n\nThe Direction Walk: Once you exit the station, cross the street at the designated crosswalk. You will see the iconic \"Takeshita-dori\" arched gate directly in front of you.\n\nAddress for Taxi: 東京都渋谷区神宮前1丁目 (Jingumae 1-chome, Shibuya City, Tokyo).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥). Most snacks (crepes, cotton candy) cost between 600¥ and 1,000¥ (~$4.00 – $6.70 USD).\n\nCash Still Matters: While many fashion stores take cards, the smaller food stalls and older purikura machines are strictly cash-only.\n\nNo Trash Cans: Japan has very few public trash cans. Most people eat their snacks in front of the shop where they bought them, as walking and eating is generally discouraged, and the shop will have a bin for your wrapper.\n\nOperating Hours: Most shops open around 10:30 AM or 11:00 AM and close by 8:00 PM. It is not a late-night destination.\n\nVehicle Restrictions: The street is a pedestrian-only zone daily from 11:00 AM to 6:00 PM, meaning you can walk freely without worrying about traffic.\n\nNo Public Amenities: Be aware that there are no public coin lockers or free Wi-Fi directly on the street itself. Most shops do not provide information boards in foreign languages.\n\nFood Etiquette: While \"snacking as you go\" is the draw here, try to stand near the shop where you purchased your food or dispose of your trash in their specific bins, as public trash cans are rare in Tokyo.",
+                        ThingsToBeWaryOf =
+                            "The Human Wave: On weekends and holidays, the crowd level is a 10/10. It can be overwhelming if you have claustrophobia.\n\nAggressive Promoters: You may see \"scouts\" or promoters (often for clothing stores or hair salons) near the entrance. A polite but firm \"No, thank you\" or a head shake while walking is enough.\n\nAnimal Cafes: Harajuku has many owl, cat, and otter cafes. Be mindful of the ethical standards and the well-being of the animals before choosing to visit.\n\nPhotography Limits: While the street is a photo-op, some boutiques and purikura areas strictly forbid indoor photography of their merchandise or layouts.",
+                        LocalPerspective =
+                            "Beyond the Main Drag: Locals know the \"real\" Harajuku is in the side alleys. If the main street feels too crowded, duck into the small veins branching off; that's where the best hidden vintage shops and quiet coffee spots are.\n\nA Cultural Identity: For Japanese youth, this isn't a \"tourist trap.\" It's a space where they can express themselves freely away from the rigid expectations of school or corporate life.\n\nLeft-Hand Rule: To keep the flow of thousands of people moving, locals generally stick to the left side of the street. Follow suit to avoid \"pedestrian gridlock.\"\n\nFashion Watch: If you want to see the most creative outfits, the street serves as a gathering point for people dressed as their favorite anime or manga characters, especially on weekend afternoons.",
+                        HiddenCost =
+                            "The \"Instagram Tax\": Those rainbow snacks and themed cafes look amazing, but they are priced for the \"aesthetic.\" You are often paying $8 for sugar and a photo opportunity.\n\nGachapon Addiction: You will see walls of capsule toy machines (Gachapon). At 300¥ to 500¥ a pop, it's easy to lose 2,000¥ before you realize it.\n\nNo Public Wi-Fi/Lockers: There is no free public Wi-Fi on the street itself. Additionally, lockers at Harajuku station fill up by 10:00 AM. If you have luggage, keep it at your hotel.\n\nPhoto Booth Add-ons: A standard Purikura session is roughly 400–500¥ (~$2.67 – $3.33 USD), but some shops charge extra for costume rentals or high-res digital downloads.\n\nThe \"Eye-Catch\" Premium: Many of the most \"Instagrammable\" foods, like the giant rainbow cotton candy, are priced significantly higher (~900¥+) than standard snacks.\n\nCrepe Customization: A basic crepe is affordable, but adding ice cream, extra fruit, or seasonal toppings can quickly push the price toward 800–1,000¥.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Meiji Jingu: Literally across the street. It is the \"silent\" counterpart to Takeshita's \"loud.\"",
+                            "Cat Street: A 5-minute walk away. It's a winding pedestrian path connecting Harajuku to Shibuya, filled with high-end streetwear and hip cafes.",
+                            "Daiso Harajuku: A massive multi-story 100-yen shop on the main street—perfect for budget-friendly souvenirs.",
+                        },
+                        BestTimeToVisit =
+                            "Weekday Mornings (11:00 AM): You'll get the \"Harajuku vibe\" without the crushing weekend crowds.\n\nLate Afternoon: The lighting is best for photos, and the energy peaks as students finish school.",
+                        crowdLevel =
+                            "Very High (10/10): Especially on Sunday afternoons. If you want a peaceful stroll, this is not the street for you.",
+                        Accessibility =
+                            "Rating: 7/10\n\nThe Terrain: The street is flat and paved, which is good for wheels. However, the sheer density of the crowd makes navigating a wheelchair or stroller extremely stressful and slow.",
+                        IdealDuration =
+                            "1 to 2 Hours\n\nThis is enough time to walk the length, grab a snack, and browse 2-3 shops. Add more time if you plan to do a full \"Purikura\" session or visit an animal cafe.\n\nThe Terrain: The street is paved and flat, but the sheer volume of people makes navigating with a wheelchair or stroller extremely difficult and stressful during peak hours.\n\nStation Access: Harajuku Station is modern and has elevators, but the crossing into Takeshita is often congested.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.JulToSep,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 25,
+                    MinCost = 5,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = takeshitaCatIds,
+                    TagIds = takeshitaTagIds,
+                },
+                // 3. Cat Street
+                new DestinationDto
+                {
+                    DestinationName = "Cat Street",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/cat_street.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Cat Street is the sophisticated, laid-back older sibling to the neon chaos of Takeshita Street. Officially named Kyu-Shibuya-gawa Yuhodoro (Old Shibuya River Pedestrian Lane), this half-mile stretch follows the path of a diverted underground stream. It serves as a stylish \"catwalk\" for Tokyo's fashion-forward 20 and 30-somethings, connecting the high-energy pulse of Harajuku with the urban grit of Shibuya. Unlike the \"kawaii\" overload nearby, Cat Street is defined by an understated, cool vibe—think high-end international flagships sitting comfortably next to hole-in-the-wall vintage boutiques and minimalist espresso bars.\n\nWhat to Do:\n\nVintage Treasure Hunting: Visit RAGTAG to find authenticated designer pieces from brands like Comme des Garçons and Issey Miyake at a fraction of their original cost.\n\nGourmet Snacking: Grab a world-famous lobster roll at LUKE'S LOBSTER or a handcrafted artisan treat at Good Town Doughnuts.\n\nExperiential Shopping: Explore DELSEY LAB Tokyo, a concept store designed to look like an airplane cabin, or the multi-story toy wonderland of KIDDY LAND nearby.\n\nArtisanal Coffee: Take a break at one of the many \"hipster-vibe\" cafes to people-watch the trendsetters walking the street.\n\nStreet Art Walk: Admire the stylish exteriors and murals that make the entire promenade a photogenic \"Instagrammable\" backdrop.\n\nThe Side-Alley Gamble: The \"real\" Cat Street is in the veins. Turn into any small alleyway to find hidden cafes and independent designers tucked away in residential buildings.",
+                        Directions =
+                            "Best Stations: Harajuku Station (JR Yamanote), Meiji-jingumae Station (Metro Chiyoda/Fukutoshin), or Shibuya Station.\n\nKey Entry Points: From Harajuku: Exit the Takeshita Exit, cross Route 305, and walk straight; Cat Street is the fifth street on your right.\n\nFrom Omotesando: It intersects the famous boulevard near the Ralph Lauren store and the pedestrian bridge.\n\nThe Direction Walk: The street is mostly pedestrianized, making it a seamless walk between the two major districts. Look for the fork in the road near the Miyashita-koen intersection in Shibuya to find the southern start.\n\nAddress for Taxi: 東京都渋谷区神宮前5-10-10 (This address is for the center-point of the street near RAGTAG).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥).\n\nThe River Legacy: The street follows a winding, organic path because it was built over the old Shibuya River bed prepared for the 1964 Olympics.\n\nAccommodation: The area features unique stays like the Trunk Hotel (Luxury) or The Millennials Shibuya (Boutique Capsule), perfect for staying in the heart of the trend.\n\nAtmosphere: It is significantly quieter and more \"grown-up\" than Takeshita Street. There is no hard-sell approach here; browsing is encouraged and relaxed.\n\nPrice Range: You can find a 500¥ doughnut or a 50,000¥ vintage jacket. It caters to everyone from students to high-earning entrepreneurs.\n\nCash for Carts: While boutiques take cards, the small food stands and artisanal coffee carts often prefer cash.",
+                        ThingsToBeWaryOf =
+                            "Pricing: While there are budget finds, the influx of international brands has made parts of the street quite expensive.\n\nOpening Hours: Many boutiques do not open until 11:00 AM. Arriving too early might find you in front of closed shutters.\n\nNavigation: Because it is a \"back street,\" it can be easy to miss the entrance if you aren't looking for the landmarks like the Omotesando pedestrian bridge.\n\nThe \"Takeshita\" Trap: Don't confuse the two. If you want neon and chaos, go to Takeshita. If you want a coffee and a high-end hoodie, stay on Cat Street.",
+                        LocalPerspective =
+                            "\"Ura-Hara\" Vibes: This area is part of \"Back-Harajuku\" (Ura-Harajuku). The real gems are often hidden in the tiny side-alleys branching off the main path; don't be afraid to get lost.\n\nNo Actual Cats: The name is metaphorical (referring to \"cool cats\" or the street's narrowness). If you want real felines, head to the cat cafes in Harajuku, as the street itself is mostly for humans (and the occasional stylish dog).\n\nRefining Taste: Locals come here not just to shop, but to \"refine their sensitivity\". It's a place to observe the cutting edge of Japanese fashion and design in a low-pressure environment.",
+                        HiddenCost =
+                            "Gourmet Premium: Expect to pay a \"Harajuku premium\" for food; a lobster roll can run nearly 1,958¥ (~$13.00 USD).\n\nThe \"Power Spot\" Fee: If you combine your trip with Meiji Jingu (nearby), remember the 500¥ fee for the Inner Garden.\n\nDesigner Vintage: Even at \"discount\" prices, high-end second-hand labels at shops like RAGTAG can still cost hundreds of dollars.\n\nThe Trunk Hotel Bar: Just off the Shibuya end is the Trunk Hotel. It's a beautiful place for a drink, but a single cocktail can cost as much as a small meal elsewhere.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Meiji Jingu Shrine: A 7-minute walk away, offering a spiritual and natural contrast to the fashion hub.",
+                            "Yoyogi Park: The perfect spot to sit and eat your take-out snacks from Cat Street.",
+                            "Miyashita Park: The Shibuya end of the street leads directly to this modern rooftop park and shopping complex.",
+                            "Omotesando: The high-fashion boulevard that intersects Cat Street, home to the world's major luxury houses.",
+                        },
+                        BestTimeToVisit =
+                            "Spring/Autumn: The walk is entirely outdoors, so mild weather is key.\n\nWeekday Afternoons: To enjoy the relaxed vibe without the larger weekend crowds.\n\nGolden Hour: The street art and glass-fronted buildings look spectacular as the sun sets over the low-rise neighborhood.",
+                        crowdLevel =
+                            "Moderate (5/10): Busy enough to feel vibrant, but rarely as claustrophobic as Takeshita Street.",
+                        Accessibility =
+                            "Rating: 9/10\n\nThe Terrain: Being a mostly pedestrian-only promenade, it is very easy to navigate on foot, though some smaller boutiques may have narrow entrances or stairs.",
+                        IdealDuration =
+                            "1 to 3 Hours\n\nThis allows time for a full end-to-end walk, some boutique browsing, and a coffee or snack break.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.JulToSep,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 100,
+                    MinCost = 10,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = catStreetCatIds,
+                    TagIds = catStreetTagIds,
+                },
+                // 4. Shibuya Crossing
+                new DestinationDto
+                {
+                    DestinationName = "Shibuya Crossing",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/shibuya_crossing.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Have you ever seen a thousand people walk directly at each other and wondered why nobody ever collides?\n\nShibuya Crossing is a miracle of \"organized chaos.\" It is the busiest intersection on Earth, where five major roads meet in a rhythmic \"scramble.\" Every two minutes, the traffic lights turn red, the giant screens dim their roar, and a human tide surges from every corner. It is the visual heartbeat of Tokyo—a neon-drenched proof that millions of people can move in perfect, silent synchronization.\n\nThis isn't just a road; it's a stage. It has been the backdrop for everything from The Fast and the Furious to Lost in Translation. To stand in the middle of it as the lights change is to feel the sheer, kinetic electricity of modern Japan.\n\nWhat to Do:\n\nThe Scramble Walk: Experience the \"heart of the storm\" by crossing diagonally. It's a rite of passage for every first-time visitor.\n\nHachiko Statue: Visit the bronze statue of Japan's most loyal dog, located just outside the station exit. It's the city's most famous meeting spot.\n\nThe View from Above: Watch the human \"ant farm\" from an elevated position (see Hidden Cost for details on the best decks).\n\nCenter Gai Exploration: After crossing, dive into this pedestrian street the epicenter of Shibuya's youth culture, packed with ramen shops, game centers, and fashion boutiques.\n\nNeon Photography: Visit at night when the massive LED screens turn the entire intersection into a glowing, futuristic canyon.",
+                        Directions =
+                            "Best Station: Shibuya Station (JR Yamanote, Saikyo, Hanzomon, Ginza, and Fukutoshin Lines).\n\nKey Exit: The Hachiko Exit. Follow the yellow signs inside the station—if you take the wrong exit, you might end up blocks away.\n\nThe Direction Walk: Once you step out of the Hachiko Exit, the crossing is immediately in front of you. You can't miss it.\n\nAddress for Taxi: 東京都渋谷区道玄坂2-2-1 (This will drop you right at the edge of the crossing near the station).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥). Crossing the street is 100% free.\n\nPeak Hours: The heaviest \"scramble\" happens during the evening rush hour (5:00 PM – 8:00 PM) and on Friday/Saturday nights.\n\nAccessibility: The crossing is fully wheelchair and stroller accessible with flat pavement and clear tactile paving for the visually impaired.\n\nPublic Etiquette: Eating while walking through the crossing is generally looked down upon. Save your snacks for the standing areas near the food stalls.",
+                        ThingsToBeWaryOf =
+                            "The \"Scramble\" Rush: Don't stop in the dead center of the crossing for a long photoshoot; you will block the flow. Snap quickly and keep moving.\n\nScams: Occasionally, \"friendly\" individuals may approach you offering to take you to a \"cool bar\" or \"free party.\" These are almost always overpriced \"bottling\" scams. Stick to reputable places.\n\nPickpockets: While safety is a 10, the extreme density during rush hour is the only time you should be mindful of your belongings in Tokyo.\n\nStation Construction: Shibuya Station is a perpetual construction site. Signage changes often, so look for the \"Hachiko\" icons rather than memorizing a specific hallway.",
+                        LocalPerspective =
+                            "The Rainy Day \"Magic\": Locals know that the crossing looks its best when it rains. The sea of transparent umbrellas reflecting the neon lights creates a \"Cyberpunk\" aesthetic that is perfect for photography.\n\nCommuter Awareness: While it's a playground for tourists, remember that for thousands of people, this is just their morning commute. Try not to stop dead in the middle of the street to take a selfie; keep moving with the flow.\n\nMeeting Point Etiquette: Don't just say \"meet at Hachiko.\" It's so crowded you'll never find your friends. Pick a specific shop entrance nearby, like the \"Moyai Statue\" on the opposite side of the station.",
+                        HiddenCost =
+                            "Shibuya Sky (Observation Deck): For the ultimate 360-degree view. Tickets in 2026 are approximately 2,500¥ – 3,500¥ ($17 - $23 USD). Sunset slots must be booked weeks in advance.\n\nMagnet by Shibuya 109 (Crossing View): A rooftop deck on the 8th floor. Entry is roughly 1,800¥ ($12 USD) and usually includes one drink. It's the best \"front-row\" seat for overhead photos.\n\nThe \"Starbucks Tax\": The Starbucks in the QFRONT building is famous for its view. It's now a \"reimagined\" store where you'll likely need to wait in line and purchase a drink (~600¥+) just to get near the window.\n\nHachiko Family Photos: There is no fee to see the dog, but there is often a long line of tourists. If you want a photo with the statue, expect to \"pay\" with 15 minutes of your time.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Shibuya 109: The iconic cylindrical fashion building for \"Gal\" and youth trends.",
+                            "Miyashita Park: A 5-minute walk. A modern rooftop park with a skate park, bouldering wall, and high-end shopping.",
+                            "Dogenzaka: The hill behind the crossing, home to Tokyo's most famous nightclubs and \"Love Hotel Hill.\"",
+                            "Shibuya Hikarie: A sophisticated skyscraper with a free 11th-floor sky lobby and art exhibitions.",
+                        },
+                        BestTimeToVisit =
+                            "Friday Night (7:00 PM): For the absolute maximum number of people and the brightest neon.\n\nRainy Evenings: For the umbrella-ocean photography.\n\nSunday Morning (8:00 AM): If you want to see the crossing strangely empty and eerie—a rare sight.\n\nSunday Afternoons: For a mix of tourists and stylish locals out for \"Nichiyoubi\" (Sunday) shopping.",
+                        crowdLevel = "Extreme (10/10): It is the definition of a crowd.",
+                        Accessibility =
+                            "Rating: 9/10\n\nThe Terrain: The pavement is smooth and level with curb cuts. Shibuya Station is fully equipped with elevators and ramps. However, the sheer density of people during rush hour can be physically overwhelming for wheelchair users or those with sensory sensitivities.",
+                        IdealDuration =
+                            "30 to 60 Minutes\n\nEnough time to cross twice, take photos of Hachiko, and grab a coffee to watch the cycle from a window.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 5,
+                    MinCost = 0,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = crossingCatIds,
+                    TagIds = crossingTagIds,
+                },
+                // 5. Shibuya Sky
+                new DestinationDto
+                {
+                    DestinationName = "Shibuya Sky",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/shibuya_sky.webp",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Imagine standing 229 meters above one of the densest cities on Earth, with nothing but a waist-high glass wall between you and the horizon. Shibuya Sky is more than just a view; it's an open-air \"sky stage\" on the rooftop of the Shibuya Scramble Square building. The experience begins before you even reach the top, with a high-tech elevator ride featuring 3D sound and light art. Once you step out onto the 47th floor, you're treated to a panoramic sweep that includes the Tokyo Skytree, Tokyo Tower, the Imperial Palace, and—on clear days—the majestic silhouette of Mt. Fuji. It is the ultimate vantage point to watch the \"organized chaos\" of the Scramble Crossing from a peaceful, wind-swept height.\n\nWhat to Do:\n\nSky Edge: Stand at the corner where the glass is lowest for the iconic \"flying over the city\" photo.\n\nThe Glass Escalator: Take a video as you ascend to the roof; it's widely considered one of the most Instagrammable spots in Tokyo.\n\nCloud Hammock: Lie back on the rooftop netting and look straight up at the sky while the city hums far below.\n\nGeo Compass: Use the floor-embedded compass to identify landmarks like the Pacific Ocean or distant mountain ranges.\n\nSky Gallery: If the wind gets too strong, head to the 46th floor for indoor digital art installations and the \"Time River\" window walk.",
+                        Directions =
+                            "Best Station: Shibuya Station (directly connected).\n\nKey Exit: Look for the East Exit or signs specifically for Shibuya Scramble Square.\n\nThe Direction Walk: Entrance is on the 14th Floor. Take the dedicated elevators from the ground floor of Scramble Square to the ticket counter.\n\nAddress for Taxi: 〒150-0043 東京都渋谷区道玄坂2 (Shibuya Scramble Square).",
+                        WhatToKnow =
+                            "Booking Strategy: Always book online in advance. It's cheaper (approx. 2,700¥ vs 3,000¥) and time slots—especially sunset—frequently sell out weeks ahead.\n\nWeather Policy: The rooftop (\"Sky Stage\") may close due to high winds or rain. If this happens, you can still access the indoor 46th-floor gallery, but no refunds are given.\n\nStrict Safety: You cannot take hats, scarves, tripods, selfie sticks, or loose bags to the roof. Everything must go in a 100¥ returnable locker on the 46th floor. Only cameras with neck straps and phones are permitted.\n\nSunset Timing: For your visit today (April 29), sunset is at approximately 6:25 PM. Aim for a 5:40 PM or 6:00 PM entry slot to catch the full transition.",
+                        ThingsToBeWaryOf =
+                            "The Wind Chill: Even on a warm day, it is significantly colder and windier at 229 meters. Bring a light jacket with pockets (since you can't bring a bag).\n\nTicket Scarcity: If adult tickets are sold out online, they are not available at the counter. Don't risk showing up without a reservation for sunset.\n\nNo Re-entry: Once you leave the observation area, you cannot go back in. Make sure you've taken all your photos before heading to the souvenir shop.",
+                        LocalPerspective =
+                            "The Golden 30: Locals aim to book their entry slot exactly 30 minutes before sunset. This allows you to see the city in daylight, catch the \"Blue Hour\" glow, and watch the neon lights of Tokyo flicker to life.\n\nWinter Clarity: Visit in the colder months (December–February) if you want the best chance of seeing Mt. Fuji; the air is much clearer and less humid then.\n\nThe \"Secret\" Bar: There is a rooftop bar (Paradise Lounge) where you can grab a drink and enjoy the view without the crowds often found at the photo corners.",
+                        HiddenCost =
+                            "The Locker Fee: You'll need a 100¥ coin for the mandatory lockers (though you get it back when you return the key).\n\nProfessional Photos: Staff at \"Sky Edge\" offer to take your photo with their pro gear. While they'll use your phone for one shot, the high-res printed version costs around 1,500¥.\n\nPeak Hour Surcharge: Note that after 3:00 PM, online ticket prices increase to 3,400¥ due to the high demand for sunset views.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Paradise Lounge: A retro-futuristic music bar on the 46th floor for snacks and cocktails with a view.",
+                            "Shibuya Scramble Square Shops: The lower floors house some of Tokyo's most high-end patisseries and boutiques.",
+                            "Hachiko Statue: Just a 3-minute walk from the ground floor entrance.",
+                        },
+                        BestTimeToVisit =
+                            "Sunset (Approx. 6:25 PM today): For the most dramatic lighting and city views.\n\n10:00 AM (Opening): If you want the \"Sky Edge\" photo without waiting in a 30-minute queue.\n\nLate Evening (9:00 PM): For a romantic, quiet atmosphere and the \"Crossing Light\" searchlight display.",
+                        crowdLevel =
+                            "High (9/10): It is currently one of the most popular attractions in Japan. Expect queues for the best photo corners.",
+                        Accessibility =
+                            "Rating: 10/10\n\nThe Terrain: Excellent. The entire facility is wheelchair and stroller accessible with wide elevators and flat surfaces.\n\nFacilities: Accessible restrooms are available on the 46th floor near the lockers.",
+                        IdealDuration =
+                            "90 Minutes\n\nThis gives you time for the locker transition, the rooftop walk, and browsing the Sky Gallery art.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.JulToSep,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 18,
+                    MinCost = 14,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = shibuyaSkyCatIds,
+                    TagIds = shibuyaSkyTagIds,
+                },
+                // 6. Senso-ji Temple
+                new DestinationDto
+                {
+                    DestinationName = "Senso-ji Temple (Asakusa Kannon)",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/sensoji.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Welcome to the spiritual soul of Tokyo. Founded in 645 AD, Senso-ji is the city's oldest temple, born from a legend of two brothers who fished a golden statue of Kannon (the Goddess of Mercy) out of the Sumida River. Even when they threw it back, it returned—a sign that a sanctuary must be built.\n\nToday, Senso-ji is a vibrant explosion of crimson red, incense smoke, and centuries-old tradition. It serves as a bridge between the hyper-modernity of Tokyo and the \"Shitamachi\" (old downtown) atmosphere of the Edo period. Whether you are here to pray, shop, or simply marvel at the architecture, it remains the most culturally significant stop in the capital.\n\nWhat to Do:\n\nPass through Kaminarimon: Walk under the massive 700kg red lantern at the \"Thunder Gate.\" Look under the lantern to see a beautifully carved dragon.\n\nThe Nakamise Sprints: Wander the 250-meter shopping street. Try Age-manju (fried bean cakes) or Ningyo-yaki (small cakes shaped like local landmarks).\n\nPurify at the Jokoro: Join the locals at the large incense burner. Waft the smoke over parts of your body you wish to heal or improve (heads are popular for wisdom!).\n\nDraw an Omikuji: For 100¥, shake a metal tin for a fortune. If you get \"Bad Luck,\" tie it to the nearby wire rack to leave the misfortune at the temple.\n\nEvening Walk: Visit after 6:00 PM. While the Main Hall closes, the gates and pagoda are illuminated, and the crowds vanish, revealing a cinematic, quiet beauty.\n\nOffer a Prayer: At the Main Hall, toss a coin (5 yen is traditional), bow twice, clap twice, and pray with palms together.\n\nAdmire the Pagoda: View the Five-Storied Pagoda, where each level represents an element: earth, water, fire, wind, and sky.",
+                        Directions =
+                            "Best Station: Asakusa Station (Tokyo Metro Ginza Line, Toei Asakusa Line, and Tobu Railway).\n\nKey Access Point: Take Exit 1 or Exit 3 and walk 2 minutes toward the giant red gate (Kaminarimon).\n\nThe Direction Walk: The temple is just a few steps from the station exits; follow the signs for the Kaminarimon Gate.\n\nAddress for Taxi: 東京都台東区浅草2-3-1 (Senso-ji Temple).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥). Entry to the grounds is Free.\n\nMain Hall Hours: 6:00 AM – 5:00 PM (Opens at 6:30 AM from Oct–Mar). The grounds themselves never close.\n\nPrayer Etiquette: Toss a coin (5¥ is lucky), bow twice, clap twice, pray silently, and bow once more.\n\nThe \"Hidden\" Statue: The original Kannon statue found in 628 AD is still there, but it is a \"Hibutsu\" (Hidden Buddha)—it is never shown to the public, not even to the monks!\n\nGrounds Access: The temple grounds themselves never close, making it accessible for late-night strolls.\n\nCrowds: As one of the most popular sites in Japan, it is almost always busy, especially during festivals like the Sanja Matsuri in May.\n\nPro-Tip: Looking for a specific blessing? Senso-ji is a \"Sho Kannon\" temple, meaning the deity here is specifically focused on relieving immediate, worldly suffering. It's the place to pray for things happening right now in your life!",
+                        ThingsToBeWaryOf =
+                            "Mid-Day Crowds: Between 11:00 AM and 3:00 PM, Nakamise Street can be overwhelming. If you are claustrophobic, aim for an 8:00 AM arrival.\n\nThe \"Bad Luck\" Myth: Senso-ji is famous for having a high ratio of \"Bad Luck\" fortunes. Don't take it personally—it's just the tradition of this specific temple!\n\nRickshaw Prices: The \"Shafu\" (rickshaw pullers) are friendly and offer great tours, but they are expensive (approx. 4,000¥ - 9,000¥ depending on duration). Agree on the price before you sit down.",
+                        LocalPerspective =
+                            "The \"Secret\" Garden: Most tourists miss Denboin Garden, a tranquil pond garden tucked behind the temple. It is only open to the public during specific weeks in spring — check local flyers!\n\nGoshuin (Temple Seal): If you have a Goshuincho (stamp book), head to the Yogodo Hall to the left of the main building. It is one of the most beautiful calligraphy seals in Tokyo.\n\nBeyond the Main Hall: Explore the quieter areas to the left of the hall to find peaceful stone lanterns, small shrines for weather deities, and the Peace Monument.\n\nAvoid the Main Path: For a more local feel, walk parallel to Nakamise Street on the side alleys. You'll find better coffee and authentic craft shops without the shoulder-to-shoulder crowds.",
+                        HiddenCost =
+                            "Omamori (Amulets): These beautiful silk charms for health, safety, or love cost 500¥ – 1,500¥.\n\nCandle Offerings: You can buy a candle or additional incense for a few hundred yen to offer at the smaller shrines.\n\nMochi Tradition: Legend says eating a snack at Nakamise ensures you will return to Japan. Budget about 500¥ for a variety of treats.\n\nGoshuin: If you collect temple stamps, there is usually a small fee at the Yogodo Hall.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Asakusa Culture Tourist Information Center: Go to the 8th-floor observation deck (Free!) for a bird's-eye view of the temple complex and Tokyo Skytree.",
+                            "Hoppy Street: A 3-minute walk away. Famous for outdoor drinking stalls serving \"stew\" and Hoppy (a beer-like beverage).",
+                            "Samurai Ninja Museum Tokyo: A 5-minute walk for a hands-on experience with swords and armor.",
+                        },
+                        BestTimeToVisit =
+                            "8:00 AM: You get to see the shopkeepers opening their shutters, which often have beautiful murals painted on them.\n\n7:00 PM: The \"Golden Hour\" for photography, when the red architecture glows against the dark sky.\n\nMay (Sanja Matsuri): If you want to experience one of Tokyo's wildest and largest festivals.\n\nJuly 9–10: During the Shiman-rokusen-nichi festival, when a single visit is said to equal 46,000 prayers.",
+                        crowdLevel =
+                            "Extreme (10/10): On weekends and holidays.\n\nModerate (4/10): On weekday early mornings.",
+                        Accessibility =
+                            "Rating: 8/10\n\nThe Terrain: Mostly flat and paved. There is an elevator located to the left of the Main Hall stairs, allowing wheelchair and stroller access to the altar area.",
+                        IdealDuration =
+                            "1.5 to 2 Hours\n\nEnough time to walk the shops, offer a prayer, and explore the smaller side shrines and gardens.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.JulToSep,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 15,
+                    MinCost = 0,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = sensojiCatIds,
+                    TagIds = sensojiTagIds,
+                },
+                // 7. Kaminarimon Gate
+                new DestinationDto
+                {
+                    DestinationName = "Kaminarimon Gate",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/kaminarimon.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "If Tokyo had a front door, this would be it. Kaminarimon (Thunder Gate) is the massive, vermilion-red gateway that guards the entrance to Senso-ji Temple. Originally built in 942 by a military commander, it has survived fires, wars, and centuries of change to become the definitive symbol of Asakusa and, arguably, Tokyo itself.\n\nThe gate is a masterclass in religious symbolism, housing two fierce Shinto guardians in the front and two Buddhist deities in the back. It serves as the threshold where the mundane world ends and the sacred journey toward the Kannon statue begins.\n\nWhat to Do:\n\nAdmire the Chōchin: Observe the massive central red lantern, which stands 3.9 meters high, 3.3 meters wide, and weighs 700 kilograms.\n\nInspect the Statues: View the Shinto gods guarding the front: Fūjin (wind god) on the right and Raijin (thunder god) on the left.\n\nMeet the Guardians: Front: Fujin (Wind God) on the right and Raijin (Thunder God) on the left. They protect the temple from natural disasters.\n\nBack: Look at the reverse side of the gate to see Tenryu (Heavenly Dragon) and Kinryu (Golden Dragon) in human form.\n\nLook Up: While walking beneath the giant lantern, look at the bottom to find an intricate carved dragon.\n\nPhotography: Capture the gate's striking red facade, especially at night when the crowds are smaller and the structure is illuminated.",
+                        Directions =
+                            "Best Station: Asakusa Station.\n\nKey Lines: Ginza Line, Asakusa Line, and Tobu Railway.\n\nThe Direction Walk: The gate is located directly at the entrance to the Senso-ji temple complex and marks the start of Nakamise-dori.\n\nAddress for Taxi: 東京都台東区浅草1-2-3 (Kaminarimon Gate).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥). Passing through is Free.\n\nDimensions: The gate stands 11 meters high and 11 meters wide.\n\nOfficial Entrance: This is the outer gate; an inner gate (Hozomon) is located further down the path.\n\nCrowd Navigation: Locals know that the area directly under the gate is a bottleneck. For the best \"clean\" photo, stand across the street at the Asakusa Culture Tourist Information Center or use a long lens from the sidewalk.\n\nHistorical Resilience: Although it has stood for over eleven centuries in name, the current iteration is a modern reconstruction designed to showcase ancient beauty.\n\nPro-Tip: If you happen to be there when it's very windy, look at the giant lantern. Despite its 700kg weight, it will sometimes sway just a few inches, making the \"Wind and Thunder\" theme of the gate feel very real!",
+                        ThingsToBeWaryOf =
+                            "Heavy Crowds: As a primary tourist landmark, it is often extremely congested during peak daylight hours.\n\nRickshaw Solicitations: The area right in front of the gate is \"base camp\" for rickshaw pullers. They are generally very polite, but they will approach you. A simple \"No thank you\" (or Kekkou desu) works fine.",
+                        LocalPerspective =
+                            "A Symbol of Gratitude: The 1960 reconstruction was donated by Konosuke Matsushita, the founder of Panasonic.\n\nGateway to Culture: Beyond its religious significance, it acts as a traditional welcome to all who enter the sacred grounds.\n\nFolded Lanterns: During the Sanja Matsuri festival in May, the giant lantern is actually collapsed/folded up so that the massive portable shrines (mikoshi) can pass underneath without hitting it!\n\nHidden Dragon: Look at the bottom of the giant lantern at Kaminarimon to find an intricately carved wooden dragon for extra luck.\n\nThe Panasonic Connection: If you look at the bottom of the giant lantern, you will see a bronze nameplate for Matsushita Denki (Panasonic). The founder, Konosuke Matsushita, donated the gate's reconstruction in 1960 after recovering from an illness he prayed away at Senso-ji.",
+                        HiddenCost =
+                            "100¥ Fortune: Just past the gate, you'll see the first stalls for Omikuji. It's a small \"cost\" for a classic experience.\n\nSnack Temptation: The smells from the first few shops on Nakamise-dori (right behind the gate) are designed to make you spend your 500¥ coins immediately!",
+                        NearbyComplements = new List<string>
+                        {
+                            "Nakamise-dori: The bustling shopping street immediately following the gate.",
+                            "Senso-ji Temple: The final destination at the end of the path.",
+                            "Asakusa Culture Tourist Information Center: Directly across the street. Go to the 8th-floor balcony for the best overhead photo of the gate and the temple path.",
+                            "Kamiya Bar: A 2-minute walk away. Tokyo's oldest Western-style bar, famous for \"Denki Bran\" (Electric Brandy).",
+                        },
+                        BestTimeToVisit =
+                            "7:00 AM: To see the gate without a single tourist in your shot.\n\nSunset: When the red paint glows deep crimson in the \"Golden Hour\" light.\n\nLate Night: For a peaceful, spiritual atmosphere once the illumination kicks in.",
+                        crowdLevel =
+                            "High (10/10): Often one of the most crowded spots in Tokyo during the day.",
+                        Accessibility =
+                            "Rating: 9/10\n\nTerrain: The area around the gate is flat and paved, making it easily accessible for pedestrians and those with mobility aids.",
+                        IdealDuration =
+                            "15 Minutes\n\nJust long enough to admire the statues, find the dragon, and take your iconic \"I'm in Tokyo\" photo.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.JulToSep,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 1,
+                    MinCost = 0,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = kaminarimonCatIds,
+                    TagIds = kaminarimonTagIds,
+                },
+                // 8. Asakusa Streets
+                new DestinationDto
+                {
+                    DestinationName = "Asakusa Streets",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/asakusa.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "If you want to feel the heartbeat of \"Old Tokyo,\" you go to Asakusa. This is the center of Tokyo's Shitamachi (low city), where the atmosphere of the Edo period still lingers in the smoke of incense and the narrow, winding back alleys. While the towering Tokyo Skytree looms just across the river as a symbol of the future, Asakusa remains anchored by Senso-ji, the city's oldest temple.\n\nBeyond the famous gates, Asakusa is a maze of discovery. It's a place where you can find Japan's oldest amusement park, watch a traditional comedy performance, or eat at a tempura shop that has been using the same recipe for over a century.\n\nWhat to Do:\n\nThe View from Above: Start at the Asakusa Culture Tourist Information Center. Take the elevator to the 8th-floor observation deck (Free!) for a stunning view of the temple complex and the Skytree.\n\nTanuki Street Scavenger Hunt: Duck into this quirky alley to find 12 different statues of Tanuki (raccoon dogs). Rub their bellies for different types of luck!\n\nEat Your Way Through Nakamise: Try Ningyo-yaki (doll-shaped cakes) and fresh Senbei (rice crackers). Pro-tip: Never walk and eat; finish your snack at the stall.\n\nThe \"Golden Turd\" Perspective: Walk toward the Sumida River to see the Asahi Beer Headquarters. The golden flame (officially the \"Asahi Flame\") is a local landmark with a very \"colorful\" nickname.\n\nRickshaw Journey: Take a \"Jinrikisha\" ride. The pullers are incredible storytellers and will take you to hidden spots you'd never find on a map.",
+                        Directions =
+                            "Best Station: Asakusa Station (Served by Ginza Line, Asakusa Line, and Tobu Railway).\n\nAccess: From Tokyo Station, take the JR Yamanote to Kanda, then transfer to the Ginza Line.\n\nThe Direction Walk: Most major attractions, including Senso-ji and Nakamise, are a short 3–7 minute walk from the station exits.\n\nAddress for Taxi: 東京都台東区浅草2-3-1 (This is the address for Senso-ji, the central landmark).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥). Street snacks usually cost 150¥ - 500¥.\n\nDon Quijote (Donki): The Asakusa branch is massive. It's the ultimate place for weird Japanese snacks, skincare, and \"sumo wrestler socks.\"\n\nSumida River Boat: You can take a futuristic boat (the Himiko or Hotaluna) from Asakusa Pier to Odaiba for a unique view of the city skyline.\n\nPublic Holidays: Many shops on Kappabashi (Kitchen Street) are closed on Sundays and national holidays.\n\nPro-Tip: If your feet are \"toast\" after walking, look for a local Sento (public bath). There are several near the Hanayashiki amusement park where you can soak with the locals for about 500¥.",
+                        ThingsToBeWaryOf =
+                            "Nakamise Crowds: The main street is a bottleneck. If you feel overwhelmed, use the parallel side streets; they have equally charming shops but 80% fewer people.\n\nEarly Closures: Unlike Shibuya, Asakusa goes to bed early. Most shops on Nakamise close by 5:00 PM or 6:00 PM.\n\nPublic Trash Bins: They are nearly non-existent. Carry a small plastic bag in your daypack to hold your trash until you get back to your hotel.\n\nSensory Overload: Massive stores like Don Quijote are chaotic and loud; consider earplugs if sensitive to noise.",
+                        LocalPerspective =
+                            "The \"Hidden\" Senso-ji: The back garden of the temple near the pagoda is significantly quieter and offers a peaceful escape from the Nakamise crowds.\n\nHoppy Street: Known to locals as \"Nikomi Street,\" this is the place to go for outdoor drinking and stewed beef tendons. It's where the locals unwind after a day of work.\n\nThe \"3 Coins\" Hack: If you need souvenirs but are on a budget, look for the 3 Coins store in the nearby mall for high-quality, 300-yen Japanese home goods.\n\nThe \"Golden Turd\": Locals have colorful nicknames for the \"Asahi Flame\" sculpture atop the Asahi Super Dry Hall next to the river.",
+                        HiddenCost =
+                            "Rickshaw Tours: These are premium experiences. Expect to pay around 9,000¥ ($60) for a 30-minute tour for two people.\n\nMelon Bread Ice Cream: It's delicious, but at 600¥-800¥, it's a \"tourist-priced\" treat.\n\nAsahi Sky Room: A beer with a view on the 22nd floor of the Asahi building will cost you about 800¥-1,200¥.\n\nAmusement Park: Hanayashiki requires a 1,200 yen entry fee plus separate costs for individual rides.\n\nShopping Bags: Most shops in Japan now charge for plastic bags, so carrying a reusable one is recommended.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Kappabashi Street: The place to buy professional kitchenware and famous plastic food samples.",
+                            "Sumida Park: A riverside park perfect for viewing cherry blossoms in the spring.",
+                            "Tokyo Skytree: A 20-minute walk across the river for high-altitude observation decks.",
+                        },
+                        BestTimeToVisit =
+                            "7:30 AM: To see the \"Shutter Art.\" Before the shops open, the metal shutters of Nakamise are painted with scenes of Japanese history and festivals.\n\nLate July: For the Sumida River Fireworks Festival, one of the biggest and oldest displays in Japan.\n\nSunset: When the lights of the Skytree turn on and reflect off the river.",
+                        crowdLevel = "High (9/10): Especially during midday and on weekends.",
+                        Accessibility =
+                            "Rating: 9/10\n\nAsakusa is very flat. Most major attractions and the main temple hall have elevators. Even the oldest underground shopping street is accessible via the station lifts.",
+                        IdealDuration =
+                            "4 to 6 Hours\n\nThis gives you time for the temple, a leisurely lunch on Hoppy Street, some shopping at Donki, and a walk along the river.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 30,
+                    MinCost = 10,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = asakusaStreetsCatIds,
+                    TagIds = asakusaStreetsTagIds,
+                },
+                // 9. Sumida Riverwalk
+                new DestinationDto
+                {
+                    DestinationName = "Sumida Riverwalk",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/riverwalk.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "If the Sumida River could talk, it would tell the story of Tokyo's transformation from the marshy fishing village of Edo to a global megacity. Flowing through the heart of the \"Shitamachi\" (low city), this 15-mile waterway is more than just a geographic boundary; it is the cultural soul of the city.\n\nHistorically, it was the backdrop for Ukiyo-e woodblock prints and Kabuki theater. Today, it serves as a stunning visual corridor where the ancient temples of Asakusa on the west bank gaze across the water at the 634-meter TOKYO SKYTREE on the east. Whether you are crossing the futuristic Sumida River Walk or cruising in a traditional yakatabune (wooden boat), the river offers a sense of space and sky that is rare in the cramped streets of Tokyo.\n\nWhat to Do:\n\nThe Sumida River Walk: Stroll across this 160-meter pedestrian bridge that links Asakusa to the Skytree area. Look for the glass floor panels to see the water and boats passing beneath your feet.\n\nTokyo Mizumachi: Explore this sleek commercial complex built under the railway tracks. It features riverside terraces, a bouldering gym (Lattest Sports), and trendy cafes like LAND_A.\n\nSumida River Terrace: Walk along the stone-paved paths that line both sides of the river. It's a 2-hour journey if you walk the whole way, passing 16 unique bridges, each with its own color and architectural style.\n\nWater Bus Cruise: Catch a futuristic boat from Asakusa Pier. The Himiko or Hotaluna (designed by manga artist Leiji Matsumoto) look like spaceships and travel all the way to Odaiba.\n\nCherry Blossom Spotting: Visit Sumida Park in the spring. Thousands of trees line the banks, creating a \"tunnel\" of pink blossoms with the Skytree in the background—a photographer's dream.\n\nCultural Exploration: Visit the nearby Kokugikan (Sumo Hall) in Ryogoku or the Edo-Tokyo Museum to see how the river's landscape has evolved over 400 years.",
+                        Directions =
+                            "Best Station: Asakusa Station (Tokyo Metro Ginza Line, Toei Asakusa Line, or TOBU SKYTREE Line).\n\nKey Exit: From Tokyo Metro Ginza Line: Take Exit 5 (7-min walk to the river). From TOBU SKYTREE Line: Take the North Exit (3-min walk to the river).\n\nThe Direction Walk: From Asakusa Station, head toward the Azuma Bridge to begin your riverside stroll. To reach the Tokyo Skytree area, follow the Sumida River Walk bridge located alongside the railway tracks.\n\nAddress for Taxi: 東京都台東区花川戸1-1 (Asakusa Pier / Sumida Park area).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥).\n\nWalking Hours: The Sumida River Walk is open from 7:00 AM to 10:00 PM.\n\nWater Bus Fare: A trip from Asakusa to Odaiba is typically around 2,000¥ (~$13.50 USD).\n\nMuseum Note: The Edo-Tokyo Museum (near Ryogoku Bridge) is a local favorite but is currently under renovation and expected to reopen in Spring 2026.\n\nFireworks Tradition: The Sumida River Fireworks Festival (late July) has been running since 1733 and is the oldest display in Japan.\n\nDining Etiquette: Many restaurants in Tokyo Mizumachi offer riverside terraces; \"LAND_A\" is a popular choice for waterfront dining.\n\nPro-Tip: If you're walking the Sumida River Walk, look for the \"Solakara-chan\" (Skytree mascot) hidden somewhere on the bridge structure. It's a fun little \"easter egg\" for eagle-eyed visitors!",
+                        ThingsToBeWaryOf =
+                            "The Three Cs: During major events like the fireworks or cherry blossom peak, avoid the \"Three Cs\": Confined spaces, Crowded places, and Close contact. The riverbanks can become incredibly packed.\n\nWeather Exposure: The riverside has very little shade or cover. On hot summer days or rainy afternoons, the walk can be punishing. Stay hydrated!\n\nBridge Distances: Bridges are about 5–10 minutes apart on foot. If you start the 2-hour walk, be sure you have the energy to finish or reach a station!\n\nVarying Hours: Operating hours for stores in Tokyo Mizumachi and nearby malls vary significantly by floor and facility.",
+                        LocalPerspective =
+                            "The \"Golden Turd\": On the east bank, you'll see the Asahi Super Dry Hall with its famous golden squiggle. While officially called the \"Asahi Flame,\" locals affectionately (and cheekily) refer to it as the \"Golden Turd.\"\n\nMimeguri-jinja Shrine: A hidden gem on the east bank. It houses the protective deity of the Mitsui clan (founders of Mitsukoshi department stores) and features unique lion statues.\n\nNight Illumination: The Sumida River Walk and the Skytree are synchronized in their lighting. The colors change based on the seasons and special holidays—sunset is the best time to see the transition.\n\nNostalgic Alleys: Venture into the streets of Mukojima near the river to find historic shrines like Mimeguri-jinja or listen for geisha practicing shamisen on Kenban-dori.",
+                        HiddenCost =
+                            "Riverside Dining: While the walk is free, dining on a \"Kawaterasu\" (river terrace) at Mizumachi or near Azuma Bridge often comes with a higher price tag for the view.\n\nSumo Museum: Entry is free, but tickets for grand tournaments in January, May, and September must be purchased well in advance.\n\nMizumachi Experiences: Activities like bouldering at Lattest Sports or staying at WISE OWL HOSTELS will require separate bookings/fees.\n\nYakatabune Dinner: If you choose a private dinner cruise on a traditional boat, expect to pay 10,000¥ - 15,000¥ (~$67 - $100 USD) per person.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Tokyo Skytree Town: Just across the River Walk, featuring the observatory, Sumida Aquarium, and the massive Solamachi mall.",
+                            "Senso-ji Temple: Only a few minutes' walk from the river's west bank.",
+                            "Ryogoku Kokugikan: The national Sumo hall, located further south along the river (about a 20-minute stroll or one train stop).",
+                            "Sumida Park: A prime location for photography, framing the river with the Skytree in the background.",
+                            "Kinshicho Area: A short walk or train ride away, featuring Kinshi Park and the Sumida Triphony Hall.",
+                        },
+                        BestTimeToVisit =
+                            "Sunset: To see the bridges and the Skytree light up simultaneously.\n\nLate March/Early April: For the world-famous cherry blossoms in Sumida Park.\n\nLast Saturday of July: For the Fireworks Festival (if you can handle extreme crowds).",
+                        crowdLevel =
+                            "Low to Moderate (3/10): On weekday mornings along the River Terrace.\n\nExtreme (10/10): During the Cherry Blossom season and the Fireworks Festival.",
+                        Accessibility =
+                            "Rating: 9/10\n\nThe Terrain: Most of the river walk and the \"Sumida River Terrace\" are paved, flat, and wheelchair/stroller friendly. The Sumida River Walk bridge is specifically designed for easy pedestrian access.",
+                        IdealDuration =
+                            "45 Minutes to 2 Hours\n\n45 minutes for a quick cross from Asakusa to Skytree; 2 hours for a full scenic stroll along the terrace to Ryogoku.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.JulToSep,
+                    },
+                    MaxCost = 10,
+                    MinCost = 0,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = riverwalkCatIds,
+                    TagIds = riverwalkTagIds,
+                },
+                // 10. Shinjuku Gyoen
+                new DestinationDto
+                {
+                    DestinationName = "Shinjuku Gyoen",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/gyoen.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Imagine a 144-acre emerald sanctuary dropped into the middle of the world's most neon-soaked skyline. Shinjuku Gyoen isn't just a park; it's a living museum of landscape design. Originally the private residence of Lord Naito, it evolved into an Imperial garden before opening to the public in 1949.\n\nThe garden is famous for its unique \"triple threat\" of design styles: a symmetrical French Formal Garden, an open English Landscape Garden, and a tranquil Japanese Traditional Garden. Whether you're looking for a quiet spot to watch turtles in a pond or a vast lawn to view over 1,000 cherry trees, this park provides the ultimate \"reset button\" for city-weary travelers.\n\nWhat to Do:\n\n- Style Hopping: Walk through all three distinct gardens. Don't miss the Taiwan Pavilion (Kyu Goryotei) for a stunning view across the water in the Japanese section.\n\n- The Greenhouse: Visit the modern, eco-friendly greenhouse to see over 2,700 species of tropical and subtropical plants, including rare orchids.\n\n- Hanami (Flower Viewing): In spring, the English Landscape Garden becomes a sea of pink. Because Shinjuku Gyoen has early and late-blooming varieties, the season here lasts longer than elsewhere in Tokyo.\n\n- Teahouse Experience: Stop at the traditional tea room in the Japanese Garden for a bowl of matcha and a seasonal sweet.\n\n- Chrysanthemum Exhibition: If visiting in early November, witness the spectacular floral displays that carry on the traditions of the Imperial era.",
+                        Directions =
+                            "Best Stations: Shinjuku Gate: 10-min walk from JR Shinjuku Station (New South Exit) or 5-min from Shinjukugyoenmae Station (Marunouchi Line). Okido Gate: 5-min walk from Shinjukugyoenmae Station. Sendagaya Gate: 5-min walk from JR Sendagaya Station.\n\nThe Direction Walk: From Shinjukugyoenmae Station, follow the signs toward the green trees. The park's perimeter is fenced, so look for the designated gate entrances.\n\nAddress for Taxi: 東京都新宿区内藤町11 (11 Naito-machi, Shinjuku-ku).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥).\n\nAdmission: 500¥ (~$3.33 USD) for adults. Children 15 and under are Free.\n\nPayment: Automatic machines take cash, credit cards, and IC cards (Suica/Pasmo).\n\nHours: Vary by season: Winter: 9:00 AM – 4:00 PM (Gates close 4:30 PM). Summer: 9:00 AM – 6:30 PM (Gates close 7:00 PM).\n\nClosed: Mondays (unless it's a holiday, then Tuesday). Open 7 days a week during cherry blossom and chrysanthemum peak seasons.\n\nPro-Tip: If you enter through the Shinjuku Gate, head straight for the Starbucks. It's arguably the most beautiful Starbucks in Japan, built with sustainable wood and featuring floor-to-ceiling windows overlooking the park's central pond.",
+                        ThingsToBeWaryOf =
+                            "The \"No-Go\" Items: Alcohol, sports equipment (bats/balls), and musical instruments are not allowed. Security at the gates often performs brief bag checks.\n\nLast Entry: Entry stops 30 minutes before the gates close. Don't arrive at 4:15 PM expecting to get in!\n\nWeekend Reservations: During the height of Sakura season (late March), you must book a timed entry slot online in advance. Walk-ins are often turned away on peak Saturdays/Sundays.",
+                        LocalPerspective =
+                            "The Picnic Hack: Shinjuku Gyoen is one of the few parks in Tokyo where alcohol is strictly prohibited. This makes it the \"locals' choice\" for families and those who want a peaceful, quiet hanami without the rowdy parties found at Ueno or Yoyogi.\n\nE-Ticket Smoothness: Use the Asoview! website to buy an e-ticket in advance. During peak cherry blossom weekends, you can skip the massive ticket machine lines and scan your QR code directly at the gate.\n\nSeasonal Clock: Locals check the \"Shinjuku Gyoen Twitter/X\" for daily flower updates. The park is a \"natural calendar\" for Tokyoites.",
+                        HiddenCost =
+                            "Annual Passport: At 2,000¥ (~$13.33 USD), it pays for itself in just four visits. If you are staying in Shinjuku for a week, it's worth considering.\n\nTeahouse Matcha: Budget about 700¥ - 1,000¥ for a tea set.\n\nGarden Souvenirs: The museum shop sells high-quality botanical goods and \"Shinjuku Gyoen\" branded sweets that are slightly pricier than standard convenience store snacks.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Shinjuku San-chome: A 10-minute walk away, filled with thousands of tiny restaurants, bars, and department stores like Isetan.",
+                            "Tokyo Metropolitan Government Building: A 20-minute walk (or short subway ride) for a free panoramic view of the city.",
+                            "Meiji Jingu: A short hop on the JR line from Sendagaya Gate.",
+                        },
+                        BestTimeToVisit =
+                            "9:00 AM: Be there when the gates open to enjoy the Japanese Garden in near-solitude.\n\nEarly November: To see the \"Momijiyama\" (Maple Mountain) on the eastern side glow with autumn colors.\n\nLate March: For the iconic cherry blossom experience.",
+                        crowdLevel =
+                            "Moderate (5/10): Weekdays.\n\nHigh (9/10): Weekends and blossom season.",
+                        Accessibility =
+                            "Rating: 10/10\n\nThe Terrain: Extremely flat and paved. Most gravel paths have a paved strip for wheelchairs and strollers. Accessible restrooms are located throughout the park.",
+                        IdealDuration =
+                            "2 to 3 Hours\n\nThis allows you to walk the full 3.5 km circumference and spend 30 minutes in the greenhouse.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 5,
+                    MinCost = 0,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = gyoenCatIds,
+                    TagIds = gyoenTagIds,
+                },
+                // 11. Tokyo Metropolitan Government Building
+                new DestinationDto
+                {
+                    DestinationName = "Tokyo Metropolitan Government Building",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/tokyo_metropolitan.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Designed by the legendary architect Kenzo Tange, the Tokyo Metropolitan Government Building is much more than an office for bureaucrats. This postmodern masterpiece, meant to resemble both a Gothic cathedral and a computer chip, was the tallest building in Tokyo until 2007.\n\nThe \"Tocho\" is a traveler's favorite because it offers something rare in Tokyo: a world-class, 202-meter-high view for absolutely zero yen. While other landmarks charge high admission fees, this building invites you to its 45th-floor twin towers to see the city sprawl toward the horizon. At night, the building transforms into a canvas for the world's largest projection mapping display, making it a dual-threat destination for both views and visual art.\n\nWhat to Do:\n\nThe Observation Decks: Head to the 45th floor of either the North or South Tower. On clear days (especially winter mornings), you can see Mt. Fuji to the west. At night, the city lights of Shinjuku look like a circuit board below you.\n\nProjection Mapping Show: Stick around in the evenings to witness \"Tokyo Night & Light.\" The building facade becomes a massive screen for a 15-minute high-tech light show, running every 30 minutes.\n\nThe Yellow Piano: In the South Observatory, look for the \"Tocho Omoide Piano.\" It's a beautifully decorated grand piano that visitors are allowed to play, often providing a live soundtrack to your sightseeing.\n\nTourist Information Hub: Visit the 1st and 2nd floors. Not only can you get maps of Tokyo, but there are often fairs showcasing local crafts and snacks from all over regional Japan.\n\nFind the Kumade: Look for the giant decorative bamboo rake on the 2nd floor—a traditional symbol used to \"rake in\" good fortune and business success.",
+                        Directions =
+                            "Best Station: Tocho-mae Station (Toei Oedo Line) is located directly in the basement of the building.\n\nAlternative: A 10-minute walk from the West Exit of JR Shinjuku Station.\n\nThe Direction Walk: From Shinjuku Station, follow the signs for the \"Moving Walkway\" (Keio Plaza Hotel direction). It's a straight, weather-protected path that leads almost to the front door.\n\nAddress for Taxi: 東京都新宿区西新宿2-8-1 (2-8-1 Nishi-Shinjuku).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥). Admission is Free.\n\nSecurity: There is a mandatory bag check before you enter the dedicated observatory elevators. Prohibited items include flammables and large luggage (use lockers at the station).\n\nHours: Generally 9:30 AM – 10:00 PM (Last entry at 9:30 PM).\n\nClosures: Towers take turns closing on different Mondays/Tuesdays for inspections. Always check the official website or the notice board at the entrance before picking a tower.\n\nPro-Tip: Don't just look out the windows! Look at the floor-to-ceiling photographic panels around the edge of the room. They identify every major building and mountain in view so you don't have to guess what you're looking at.",
+                        ThingsToBeWaryOf =
+                            "The Queue: Even though it's free, the line for the elevators can be 30–45 minutes long on weekends or during sunset. Try to arrive at least an hour before you want to see the sun go down.\n\nReflection: The glass can have significant glare at night, making photography tricky. To get a good shot, place your lens directly against the glass (or use a lens hood/scarf to block interior light).\n\nWeather: Projection mapping and views are highly dependent on visibility. If it's raining or very foggy, the show may be cancelled and the views will be non-existent.\n\nNorth Tower Variation: On certain days, the North Observatory may close earlier (17:30) if the South tower is also operational.",
+                        LocalPerspective =
+                            "South vs. North: Locals usually prefer the South Tower for daytime views (better angle for Mt. Fuji) and the North Tower for evening views (it typically stays open later when the South is closed).\n\nThe \"Gov\" Lunch: For a truly local experience, you can actually eat at the Staff Canteen (32nd floor) during lunchtime on weekdays. It's cheap, high-quality, and offers a great view, though it feels a bit like a high school cafeteria.\n\nWinter Clarity: If your goal is to see Mt. Fuji, aim to be at the observatory between 9:30 AM and 10:30 AM in December or January. The cold, dry air makes the mountain pop in the distance.",
+                        HiddenCost =
+                            "The Gift Shop Trap: The souvenirs in the observatory are actually quite good, featuring limited-edition Tokyo-themed items you won't find at the airport.\n\nObservatory Cafe: A coffee or beer with a view will cost you about 600¥ - 900¥ (~$4.00 – $6.00 USD). It's the \"price\" of sitting by the window.\n\nStaff Canteen Meal: If you opt for the 32nd-floor lunch, expect to pay around 600¥ - 800¥ for a set meal.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Shinjuku Central Park: Located right behind the building, it's a great spot to see the skyscraper from below or let kids run around.",
+                            "Park Hyatt Tokyo: The famous \"Lost in Translation\" hotel is just a few blocks away.",
+                            "Omoide Yokocho (Piss Alley): A 12-minute walk back toward Shinjuku Station for a gritty, narrow-alley dinner of yakitori and beer.",
+                            "Meiji Shrine: Visible from the observation deck and located a short distance away in Shibuya.",
+                        },
+                        BestTimeToVisit =
+                            "9:30 AM (Winter): For your best shot at seeing Mt. Fuji.\n\n4:30 PM: To catch the \"Blue Hour\" when the sun sets and the city lights flicker on.\n\n7:30 PM (Varies): To catch the start of the evening projection mapping show on the building's exterior.",
+                        crowdLevel =
+                            "Moderate (6/10): Weekdays.\n\nHigh (9/10): Weekends and clear sunset periods.",
+                        Accessibility =
+                            "Rating: 10/10\n\nThe Terrain: Completely ADA-compliant. There are dedicated elevators for the observatories, wide corridors, and multi-purpose toilets. Wheelchair loans are also available at the information desk.",
+                        IdealDuration =
+                            "1 to 1.5 Hours\n\nThis covers the bag check, the elevator ride, a full loop of the deck, and a quick browse of the gift shop.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 5,
+                    MinCost = 0,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = metroGovCatIds,
+                    TagIds = metroGovTagIds,
+                },
+                // 12. Shinjuku Golden Gai
+                new DestinationDto
+                {
+                    DestinationName = "Shinjuku Golden Gai",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/golden_gai.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Stepping into Shinjuku Golden Gai is like falling through a crack in Tokyo's neon-and-chrome facade. While the rest of Shinjuku reached for the sky, these six narrow alleys remained stuck in the 1950s. This \"shanty-style\" district is home to over 200 tiny, two-story bars, some so small they can only fit five customers at a time.\n\nHistorically a hub for the \"intellectual\" crowd—writers, directors, and actors—it has retained its ramshackle, mismatched charm despite the surrounding urban development. It is the antithesis of a polished hotel bar; it's cramped, dimly lit, and smells of history, woodsmoke, and whiskey.\n\nWhat to Do:\n\n- Bar Hopping: The quintessential Golden Gai experience. Don't settle for the first place you see. Try a theme bar like Deathmatch in Hell (horror/rock) or Ace's for a friendly, music-centric vibe.\n\n- Themed Discovery: Look for bars dedicated to specific niches like Jazz, R&B, Flamenco (Izakaya Nana), or even Horse Racing.\n\n- Meet the Locals: Because space is so tight, conversation is inevitable. This is one of the best places in Tokyo to talk to \"non-typical\" Japanese locals—artists, musicians, and long-time bartenders.\n\n- Visit the Theater: Catch a comedy show at the Shinjuku Golden Street Theatre located in a corner of the district.\n\n- Late Night Stroll: Even if you aren't drinking, walking through the alleys at 11:00 PM provides an atmosphere that feels like a movie set from an old Noir film.",
+                        Directions =
+                            "Best Station: JR Shinjuku Station (East Exit).\n\nKey Exit: East Exit.\n\nThe Direction Walk: From the East Exit, it is a 5 to 10-minute walk. Located between the Shinjuku City Office and Hanazono Shrine. Look for \"Mister Donut\" on Google Maps; the area is reached via a tree-lined street just behind and to the right of that storefront.\n\nNav Tip: Search for \"Shinjuku Golden Gai\" or \"Hanazono Shrine\" on Google Maps to find the entrance to the network of alleys.\n\nAddress for Taxi: 新宿区歌舞伎町1-1-6 (1-1-6 Kabukicho, Shinjuku).",
+                        WhatToKnow =
+                            "Currency Conversion: ($1 ≈ 150¥).\n\nCover Charges: Most bars charge a \"Table Charge\" or \"Cover\" ranging from 500¥ to 1,000¥. This is standard and pays for your seat in such a limited space.\n\nOpening Hours: Most bars don't even open their doors until 9:00 PM or 10:00 PM. The area is a ghost town during the day.\n\nFood: Very few bars serve actual meals. Eat dinner beforehand at Omoide Yokocho (Piss Alley) nearby.\n\nPro-Tip: Look for the \"No Cover Charge\" signs if you're on a budget, but remember that bars with cover charges often provide a small snack (otoshi) like nuts or a small bowl of pasta salad.",
+                        ThingsToBeWaryOf =
+                            "Strict Etiquette: Respect the \"Regulars Only\" signs; if a bar looks closed or unwelcoming, it likely prefers local regulars.\n\nSocial Battery: If you are claustrophobic, Golden Gai might be a challenge. You will be touching elbows with strangers.\n\nSunday Slump: Many bars close on Sundays. If you visit then, you'll miss the vibrant energy.\n\nThe Bill: One drink + cover charge can easily hit 1,500¥–2,000¥ (~$10–13 USD). If you hop to five bars, your night becomes expensive quickly.\n\nSteep Stairs: Many second-story bars are reached by very steep, narrow staircases that can be difficult to navigate.\n\nSpace Constraints: Bars are extremely small; be prepared to get \"cozy\" with strangers.",
+                        LocalPerspective =
+                            "The \"Regulars Only\" Rule: If a door is closed and there is no English sign or price list, it might be a \"members only\" bar. Don't take it personally—these spots are living rooms for long-time regulars.\n\nThe Yakuza Guard: In the 1980s, locals and supporters famously took turns guarding the area to prevent developers (and arsonists) from destroying the district. There is a deep pride in its survival.\n\nPhotography Protocol: The alleys are private roads. Street photography and filming are officially prohibited without permission from the business association. Be discreet or ask before snapping photos of bar interiors.",
+                        HiddenCost =
+                            "Cover Fees (Otoshi): 500 to 1,000 yen (~$3.33 – $6.67 USD) per bar.\n\nThe \"Tourist Tax\": While not an official tax, bars that are very \"tourist-friendly\" (English signs out front) sometimes have slightly higher drink prices than the hidden, local-only spots.\n\nPremium Drink Prices: Drinks can be expensive, sometimes reaching 1,500 yen for a single cocktail.\n\nTaxi Surcharge: Late-night returns to other parts of Tokyo will require a taxi, which often adds a late-night surcharge.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Hanazono Shrine: A beautiful, calm Shinto shrine located right next to the chaos of Golden Gai.",
+                            "Omoide Yokocho (Piss Alley): Great for yakitori and a \"pre-game\" meal before you head to Golden Gai.",
+                            "Kabukicho: The broader red-light and entertainment district surrounding the area.",
+                            "Thermae-Yu: A massive 6-story 24-hour onsen/spa just 5 minutes away. Perfect for soaking off the \"bar smell\" before heading home.",
+                        },
+                        BestTimeToVisit =
+                            "Weeknights (Mon-Thu): For a more authentic experience with fewer tourists than the weekend rush.\n\n10:00 PM – 1:00 AM: This is when the area is at its most electric.\n\nWeekdays: Slightly fewer tourists, making it easier to snag a stool in the most popular tiny bars.",
+                        crowdLevel =
+                            "Extreme (9/10): Especially on Friday and Saturday nights. You may have to check three or four bars before finding a single open seat.",
+                        Accessibility =
+                            "Rating: 2/10\n\nThe Terrain: The alleys are extremely narrow and uneven. Most bars are accessible only by very steep, ladder-like stairs. It is unfortunately not wheelchair-friendly.",
+                        IdealDuration =
+                            "2 to 4 Hours\n\nThis gives you enough time to experience 2 or 3 different bars and have a few meaningful conversations.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.JulToSep,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 45,
+                    MinCost = 15,
+                    SafetyLevel = 9,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = goldenGaiCatIds,
+                    TagIds = goldenGaiTagIds,
+                },
+                // 13. Kabukicho
+                new DestinationDto
+                {
+                    DestinationName = "Kabukicho",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/kabukicho.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Kabukicho is Tokyo's legendary \"Sleepless Town\" (Shinjuku no Fuyajo). Located just northeast of Shinjuku Station, it is the largest and most infamous entertainment district in Japan. While it historically carries a gritty reputation as a red-light district, recent massive redevelopments—like the Tokyu Kabukicho Tower—have transformed it into a hybrid of world-class entertainment and neon-drenched chaos. It's a sensory overload of thousands of bars, nightclubs, karaoke parlors, and \"love hotels,\" all coexisting under a sea of glowing signs.\n\nWhat to Do:\n\n- The Godzilla Encounter: Visit the 8th-floor terrace of the Hotel Gracery to see the life-size Godzilla head. It roars and breathes smoke every hour on the hour (12 PM–8 PM).\n\n- Arcade Hopping: Head to namco TOKYO inside the Kabukicho Tower for a \"Neo-Tokyo\" gaming experience featuring high-tech claw machines and AI DJ lounges.\n\n- Immersive Quests: Challenge the Sword Art Online: Anomaly Quest, an interactive escape-room style dungeon inside the main tower.\n\n- Retro Dining: Eat your way through Shinjuku Kabuki Hall, an indoor food hall themed after traditional Japanese festivals and regional soul food.\n\n- Cultural Contrast: Take a 2-minute walk to the serene Hanazono Shrine to see where the district's performers pray for success.\n\n- Themed Bar Hopping: Explore Golden Gai's diverse bars, featuring themes like punk rock, jazz, or exploitation films.\n\n- Cultural Experience: Visit the SAMURAI & NINJA MUSEUM to try on armor or the Ninja Trick House for interactive puzzles.",
+                        Directions =
+                            "Best Station: JR Shinjuku Station or Seibu-Shinjuku Station.\n\nKey Exit: From JR Shinjuku Station: You must find the East Exit (or the Studio Alta exit). If you find yourself at the \"South\" or \"West\" exits, it is a long, confusing walk around the tracks. From Seibu-Shinjuku Station: Take the Main Exit; you are practically already in the district.\n\nThe Direction Walk: Once you come out of the JR Shinjuku East Exit, you will see a large plaza with a giant video screen (Studio Alta). Walk toward the large multi-lane road (Yasukuni-dori) directly ahead. Cross the street toward the Don Quijote (it has a massive yellow sign). The entrance to Kabukicho is the street marked by a famous red neon archway (Kabukicho Ichibangai) right next to it.\n\nLandmark: Look up! You should see the Gracery Hotel with a life-sized Godzilla head peeking over the roof. Walk toward Godzilla, and you are in the heart of the district.\n\nAddress for Taxi: 東京都新宿区歌舞伎町1丁目",
+                        WhatToKnow =
+                            "The Touts: You will be approached by men in suits or tracksuits offering \"cheap drinks\" or \"girls.\" Ignore them. They are professional recruiters for bars that often engage in overcharging scams.\n\nThe \"Last Train\" Dash: Around 12:00 AM, you'll see a literal stampede of people heading back to Shinjuku Station to catch the last train. If you miss it, be prepared to stay until 5:00 AM or pay for an expensive taxi.\n\nCash Flow: While the newer towers take cards/Apple Pay, most small izakayas and bars in the area are still cash-only.",
+                        ThingsToBeWaryOf =
+                            "Bottakuri (Rip-offs): Never enter a bar recommended by a stranger on the street. Some bars charge hidden \"sitting fees\" or \"service taxes\" that can turn a $20 night into a $500 bill.\n\nDrink Spiking: While rare, there have been 2026 reports of drink-spiking in \"hidden\" bars. Stick to reputable, well-reviewed spots.\n\nPhotography: Avoid taking direct photos of host/hostess club staff or people working in the \"deep\" areas; they value their privacy and can be confrontational.",
+                        LocalPerspective =
+                            "Day vs. Night: During the day, Kabukicho is actually quite family-friendly and great for photography. The \"vibe\" shifts dramatically after 9 PM.\n\nThe \"Blue Zone\" vs. \"Red Zone\": Locals generally stick to the Blue Zone (the main well-lit central roads near the cinema) for dining. The Red Zone (northern backstreets) is where the \"adult\" establishments are concentrated and require more street smarts.",
+                        HiddenCost =
+                            "Table Charges: Expect to pay an otoshi (appetizer/cover charge) of 500¥ to 1,000¥ per person at most bars. This is mandatory and often comes with a small, unsolicited snack.\n\nMidnight Surcharge: Taxis in Tokyo increase their rates by 20% between 10 PM and 5 AM.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Golden Gai: A collection of 200+ tiny themed bars just a 3-minute walk east.",
+                            "Omoide Yokocho: Also known as \"Piss Alley,\" it's the go-to spot for yakitori and beer before heading into the neon lights of Kabukicho.",
+                            "Thermae-Yu: A massive 24-hour natural hot spring spa perfect for recovering after a long night out.",
+                        },
+                        BestTimeToVisit =
+                            "8:00 PM – 11:00 PM: The \"Golden Hour\" where the neon is brightest but the crowds are still mostly tourists and regular diners.",
+                        crowdLevel =
+                            "9/10 (High): Especially on Friday and Saturday nights. The main thoroughfares can feel like a packed mosh pit.",
+                        Accessibility =
+                            "Rating: 7/10\n\nThe main streets are flat and paved. Most major attractions (Kabukicho Tower, Toho Cinemas) are fully ADA-compliant. However, many small basement bars are only accessible via narrow, steep stairs.",
+                        IdealDuration =
+                            "3 to 5 Hours (Enough time for dinner, some arcade games, and Godzilla-spotting).",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                    },
+                    MaxCost = 100,
+                    MinCost = 5,
+                    SafetyLevel = 7,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = kabukichoCatIds,
+                    TagIds = kabukichoTagIds,
+                },
+                // 14. Tsukiji Outer Market
+                new DestinationDto
+                {
+                    DestinationName = "Tsukiji Outer Market",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/tsukiji.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Tsukiji Outer Market is Tokyo's \"Food Town,\" a resilient district that remained vibrant even after the inner wholesale market (famous for the tuna auctions) moved to Toyosu in 2018. Built on \"constructed land\" reclaimed in the 1600s, it serves as a bridge between professional chefs and food-loving travelers.\n\nThe market is a dense maze of over 400 shops selling everything from high-end Uni (sea urchin) and Bluefin Tuna to professional-grade Japanese knives and handmade ceramics. It is a sensory journey where the smell of grilled scallops meets the rhythmic sound of knives on cutting boards, offering an authentic taste of Tokyo's \"Shitamachi\" (old town) spirit.\n\nWhat to Do:\n\nSushi Breakfast: Dine at local restaurants that serve seafood delivered directly from the Toyosu Market.\n\nProfessional Shopping: Browse specialty shops for dried bonito flakes, seaweed, high-quality knives, and authentic Japanese tableware.\n\nStreet Food Crawl: Sample ready-to-eat items like tamagoyaki (omelets), sashimi rice bowls, and fresh oysters.\n\nCultural Pilgrimage: Visit the Namiyoke Inari Shrine at the corner of the market, which has served as a \"guardian against waves\" for the district since the 1600s.\n\nExplore Tsukiji Uogashi: Visit this newer facility to find fresh seafood and produce in a more organized wholesale setting.",
+                        Directions =
+                            "Best Stations: Tsukiji Shijo Station (Oedo Subway Line) or Tsukiji Station (Hibiya Subway Line).\n\nKey Exit: From Tsukiji Shijo Station: A short walk from the station exit. From Tsukiji Station: Reach the market within minutes of exiting.\n\nThe Direction Walk: From Tokyo Station, take the Marunouchi Line to Ginza and transfer to the Hibiya Line for Tsukiji Station. From Shinjuku Station, take the Oedo Line directly to Tsukiji Shijo Station (approx. 20 minutes). From Shimbashi Station, the market is a roughly 20-minute walk.\n\nAddress for Taxi: 東京都中央区築地4-16-2 (4-16-2 Tsukiji, Chuo-ku).",
+                        WhatToKnow =
+                            "Operating Hours: Most restaurants open as early as 5:00 AM and close by noon or early afternoon.\n\nCrowd Warning: The market can become extremely crowded; early morning visits are highly recommended to avoid the heaviest tourist traffic.\n\nProfessional Etiquette: While retail customers are welcome, remember that many shops still serve professional chefs; be mindful of business operations in narrow passageways.\n\nToyosu vs. Tsukiji: If you want to see the Tuna Auction, you must go to Toyosu Market (a few miles away). If you want to eat and shop, stay at Tsukiji Outer Market.\n\nCash Flow: While large restaurants take cards, the best street food stalls are strictly cash-only.\n\nTax-Free: Many kitchenware and dried goods shops offer tax-free shopping for tourists (bring your passport!).\n\nPro-Tip: If the line for a famous sushi shop is 2 hours long, look for \"Tsukiji Uogashi\" (the multi-story building). The food court on the top floor often has high-quality seafood with much shorter wait times!",
+                        ThingsToBeWaryOf =
+                            "Overtourism Measures: Be aware that some popular Tokyo landmarks have begun implementing temporary access restrictions during holidays to manage crowds.\n\nPricing: Some specialty items, such as rare tuna cuts or aged whiskies, can be very expensive.\n\nMaze-like Streets: The intricate layout of the market can be confusing; keep a digital or PDF guide map handy.",
+                        LocalPerspective =
+                            "\"Constructed Land\": The name \"Tsukiji\" literally means \"constructed land,\" as the area was reclaimed from Tokyo Bay following a great fire in 1657.\n\nProfessional Roots: The market began in 1935 after the Great Kanto Earthquake destroyed the previous Nihonbashi Fish Market.\n\nHidden Gems: Locals and connoisseurs seek out rare delicacies like nodoguro (blackthroat seaperch) or high-end sake bars and whiskey lounges tucked away in the alleys.\n\nAfternoon Ghost Town: Most shops begin closing by 1:00 PM or 2:00 PM. By 3:00 PM, the market is almost entirely shut down. This is an early morning destination only.\n\nThe \"Don't Walk and Eat\" Rule: Unlike many Western markets, \"eating while walking\" (tabearuki) is traditionally frowned upon here to keep the narrow lanes clean. Most stalls provide a small standing space to finish your snack before moving on.",
+                        HiddenCost =
+                            "Premium Ingredients: High-end merchandise and rare fish varieties (like otoro) command professional prices.\n\nShipping & Delivery: Services for domestic delivery or tax-refund procedures may involve additional fees.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Ginza: A high-end shopping and dining district only a few minutes away by train or a 15-minute walk.",
+                            "Hamarikyu Gardens: A beautiful landscape garden located near the market, perfect for a post-breakfast stroll.",
+                            "Kabuki-za Theatre: Located nearby in Higashi-Ginza for a traditional Japanese performance.",
+                        },
+                        BestTimeToVisit =
+                            "8:00 AM – 10:00 AM: The sweet spot where all shops are open, but the massive midday tourist lunch crowds haven't fully peaked yet.",
+                        crowdLevel =
+                            "10/10 (High): Expect tight quarters, queues for popular sushi spots, and a \"shoulder-to-shoulder\" experience in the main alleys.",
+                        Accessibility =
+                            "Rating: 6/10\n\nWhile the main areas are accessible, many individual shops and older restaurants are located in narrow, cramped alleys that may be difficult for wheelchairs or strollers to navigate.",
+                        IdealDuration =
+                            "2 to 3 Hours\n\nSufficient for a sushi meal and a leisurely walk through the primary wholesale and retail blocks.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.JulToSep,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 60,
+                    MinCost = 5,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = tsukijiCatIds,
+                    TagIds = tsukijiTagIds,
+                },
+                // 15. teamLab Borderless: Azabudai Hills
+                new DestinationDto
+                {
+                    DestinationName = "teamLab Borderless: Azabudai Hills",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/teamlab.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Reopened in early 2024 at the prestigious Azabudai Hills complex, teamLab Borderless is the \"museum without a map.\" Unlike traditional galleries, the art here literally walks out of the rooms—dragons fly down hallways, and flowers bloom where you stand. It is a 10,000-square-meter maze of over 75 interconnected digital works that evolve in real-time based on your presence. In 2026, it remains one of the world's most visited art museums, featuring fan favorites like the \"Forest of Resonating Lamps\" alongside newer, world-exclusive installations like \"Bubble Universe.\"\n\nWhat to Do:\n\nThe Wander Rule: There is no map. If you see a dark curtain or a narrow hallway, go through it. Some of the best rooms, like the Light Vortex or the Crystal World, are easily missed if you follow the crowd.\n\nEN TEA HOUSE: This is a mandatory \"extra.\" You buy a cup of matcha, and a digital flower \"blooms\" inside your tea. When you move the cup, the petals scatter. It's one of the most serene, high-tech tea ceremonies on Earth.\n\nSketch Ocean: Color in a sea creature on paper, scan it, and watch it swim onto the walls of the giant digital aquarium. In 2026, your creations can even \"travel\" to other teamLab exhibits worldwide.\n\nInteract with the Walls: Almost everything is touch-sensitive. Touch the \"Universe of Water Particles\" (the giant waterfall) and the water will flow around your body like a real rock.\n\nBubble Universe: A newer room featuring hundreds of glass spheres that react to your movement, creating a cascading light show that feels like being inside a galaxy.",
+                        Directions =
+                            "Best Station: Kamiyacho Station (Tokyo Metro Hibiya Line).\n\nKey Exit: Exit 5.\n\nThe Direction Walk: The museum is a 2-minute walk from Kamiyacho Station. It is located within the Azabudai Hills development.\n\nFrom Major Hubs: From Tokyo Station: Approximately 12 minutes via the Marunouchi Line (change at Ginza to the Hibiya Line). From Shinjuku Station: Approximately 24 minutes via the Marunouchi Line (change at Kasumigaseki to the Hibiya Line).\n\nAddress for Taxi: 東京都港区麻布台1-2-4",
+                        WhatToKnow =
+                            "Variable Pricing: Ticket prices change depending on the day. Weekends and holidays (like the upcoming Golden Week in early May) are significantly more expensive and sell out weeks in advance.\n\nBooking: It is strongly advised to book tickets online in advance; on-site tickets incur an additional 200 yen fee and may be sold out.\n\nFootwear: Unlike teamLab Planets, you keep your shoes on here. Wear comfortable sneakers; you will be walking and standing for 3+ hours.\n\nMirrored Floors: Many rooms have mirrored floors. If you are wearing a short skirt, it is highly recommended to wear leggings or shorts underneath (though they do offer \"wrap-around skirts\" for borrowing if needed).\n\nPro-Tip: If you see a crowd waiting for a specific room, keep walking! The artworks \"migrate\" through the halls. You might see the same dragons or characters in a completely empty hallway five minutes later.",
+                        ThingsToBeWaryOf =
+                            "Battery Life: You will take more photos and videos here than anywhere else in Japan. Bring a portable power bank. Most visitors check their bags in the lockers before entering, but make sure to keep your charger with you!\n\nStaff Policies: Be aware that staff may enforce strict policies regarding movement and interaction to protect the artwork.\n\nSensory Overload: The \"Light Vortex\" room features high-speed flashing lights and spinning beams. It can be intense for those prone to motion sickness or photosensitivity.\n\nCrowd Flow: Touts aren't an issue here, but \"Influencer Traffic Jams\" are. Be patient in the Lamp Room, as there is often a timed entry (usually 1-2 minutes per group).",
+                        LocalPerspective =
+                            "The \"Canvas\" Dress Code: Locals know to wear white or light-colored clothing. The digital art is projected onto you, making your body a literal part of the artwork.\n\nSeasonal Shifts: The art reflects the real-world seasons of Tokyo. If you visit in April 2026, you will see digital cherry blossoms (Sakura) and budding rice plants in the \"Memory of Topography\" room.\n\nAvoid the Lunch Rush: The Azabudai Hills complex is a business hub. Visiting at 12:00 PM means competing with thousands of office workers for nearby lunch spots.\n\nBorderless vs. Planets: While \"teamLab Planets\" involves wading through water and removing shoes, \"Borderless\" allows you to explore with shoes on and emphasizes the intermingling of artworks across rooms.",
+                        HiddenCost =
+                            "EN TEA HOUSE: Not included in your ticket. Expect to pay about 600¥ – 1,100¥ per person for the tea experience.\n\nLockers: Available on-site (usually 100¥, often refundable). Use them! Carrying a heavy backpack through the mirrors and narrow passages will ruin your experience.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Tokyo Tower: A 10-minute walk away. The view of the tower from the Azabudai Hills plaza is one of the best in the city.",
+                            "Mori Art Museum (Roppongi Hills): Just one station away if you haven't had enough art for the day.",
+                            "Janu Tokyo: The luxury hotel inside Azabudai Hills has incredible (but pricey) afternoon tea if you want to stay in the upscale vibe.",
+                        },
+                        BestTimeToVisit =
+                            "9:00 AM (Opening) or after 6:00 PM: The museum is often open until 9:00 PM. Visiting late allows you to avoid the school groups and tourist rushes.",
+                        crowdLevel =
+                            "8/10 (High): It's a global bucket-list item. Even with timed entry, the popular rooms will have short queues.",
+                        Accessibility =
+                            "Rating: 8/10\n\nMostly wheelchair and stroller accessible. There are specific \"barrier-free\" routes provided by staff, though a few \"Athletics Forest\" areas with uneven terrain may be restricted.",
+                        IdealDuration =
+                            "3 to 4 Hours\n\nBecause there is no set path, you can easily get lost (intentionally) for half a day.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.JanToMarch,
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.JulToSep,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 30,
+                    MinCost = 10,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = teamlabCatIds,
+                    TagIds = teamlabTagIds,
+                },
+                // 16. Tokyo Disney
+                new DestinationDto
+                {
+                    DestinationName = "Tokyo Disney",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/disney_tokyo.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Tokyo Disney Resort (TDR) is a premier vacation destination in Urayasu, Chiba, consisting of Tokyo Disneyland (TDL) and Tokyo DisneySea (TDS). In 2026, the resort is celebrating the 25th Anniversary of DisneySea with the \"Sparkling Jubilee.\" Owned and operated by the Oriental Land Co., the resort is famous for its unmatched maintenance, seasonal food, and the massive 2024 expansion, Fantasy Springs. It remains a \"bucket list\" destination for Disney fans worldwide due to its unique nautical-themed park and high-tech attractions.\n\nWhat to Do:\n\n- Fantasy Springs (TDS): Explore the lands of Frozen, Tangled, and Peter Pan. Most rides are now on Standby, but wait times are significant (100–180+ mins).\n\n- \"Sparkling Jubilee\" (TDS): View the 25th-anniversary harbor show and the world-dance stage show \"Dance the Globe!\" featuring Mirabel and Hiro.\n\n- Enchanted Tale of Beauty and the Beast (TDL): Ride the world-renowned trackless dark ride in Fantasyland.\n\n- Seasonal Snacking: Try the 2026 Jubilee Blue Macarons or classic Alien Mochi.\n\n- Ikspiari Shopping: Visit the \"Downtown Disney\" of Japan for dining and resort-exclusive merch.",
+                        Directions =
+                            "Best Station: JR Maihama Station (JR Keiyo Line from Tokyo Station).\n\nKey Access: From Tokyo Station: Reach Maihama in approximately 15 minutes via the JR Keiyō Line.\n\nDisney Resort Line: A monorail system that connects Maihama Station to the theme parks and resort hotels.\n\nShuttle Services: The Tokyo Disney Celebration Hotel is connected to the resort via a free 15-minute shuttle.\n\nAddress for Taxi: English: 1-1 Maihama, Urayasu, Chiba. Japanese: 千葉県浦安市舞浜1-1 (東京ディズニーリゾート). Note: Specify \"Disneyland\" or \"DisneySea\" drop-off to save walking time.",
+                        WhatToKnow =
+                            "Ticket Tiers (USD @ 160¥): Value: ¥7,900 (~$49); Regular: ¥9,400 (~$59); Peak: ¥10,900 (~$68).\n\nDisney Premier Access (DPA): Paid line-skipping (approx. $9–$15 per ride). Highly recommended for Anna and Elsa's Frozen Journey.\n\nMobile Order: Use the TDR App to order food early in the morning to avoid 40+ minute lunch lines.\n\nBooking Tickets: Buy tickets online 30–60 days in advance, as they can sell out for popular dates.\n\nLanguage Barrier: While most dialogue in attractions is Japanese, signs and maps are in English, and Cast Members are exceptionally helpful with limited English.\n\nWait Times: Tokyo DisneySea often experiences higher wait times than Disneyland, with headliners frequently exceeding 100 to 180 minutes.\n\nPro-Tip: The \"Value\" price of $49 makes this one of the best entertainment deals in the world right now. If you can avoid the Golden Week rush, you'll be getting a premier Disney experience for a fraction of the usual global cost.",
+                        ThingsToBeWaryOf =
+                            "Golden Week (Current): You are in the middle of Japan's busiest holiday week (April 29 – May 5). Expect max-capacity crowds and ¥10,900 ticket pricing.\n\nConstruction Zone: Tomorrowland (TDL) is currently a heavy construction site as the new Space Mountain is built for 2027.\n\nLast Train: The Keiyo Line to Tokyo becomes a \"mosh pit\" after the fireworks. Consider leaving 20 minutes early or staying for a late dinner at Ikspiari.",
+                        LocalPerspective =
+                            "The 160¥ Exchange Rate: With the Yen currently at 160¥ to $1, your dollar is stronger than it has been in decades. This makes luxury dining and high-end merchandise significantly cheaper for USD holders.\n\nSitting for Shows: Locals sit for parades and harbor shows. Bring a small plastic sheet to claim your space.\n\nDisproportionate Local Attendance: TDR is heavily driven by repeat local visitors, which leads to high demand for new seasonal events and specific new lands like Fantasy Springs.\n\nRule Adherence: In Japan, rules and meal menu items are typically inflexible; requests for substitutions are often met with confusion or resistance.\n\nRope Drop: If the park \"officially\" opens at 9:00 AM, expect them to open the gates at 8:15 AM. Arrive by 7:15 AM to be at the front of the pack.",
+                        HiddenCost =
+                            "Table Charges: Restaurants in Ikspiari may have a small cover charge (otoshi) in the evenings.\n\nLine-Skipping Fees: To maximize a single day, many visitors feel compelled to purchase multiple Disney Premier Access passes.\n\nDPA Stacking: If you buy DPA for three major rides, you're adding roughly $35–$40 to your daily per-person cost.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Kasai Rinkai Park: One stop away, featuring a giant Ferris wheel and aquarium.",
+                            "Spa & Hotel Resort: Many \"Official\" hotels (Hilton, Sheraton) offer massive breakfast buffets and public baths.",
+                            "Chiba City: Accessible for those looking to explore beyond the immediate resort area.",
+                        },
+                        BestTimeToVisit =
+                            "Tuesdays – Thursdays: To avoid the local weekend rush.\n\nMid-May: Immediately after Golden Week ends (May 7th onwards) is the \"sweet spot\" for 2026.",
+                        crowdLevel =
+                            "10/10 (Current - Golden Week/Anniversary)\n\n7/10 (Standard Weekday)",
+                        Accessibility =
+                            "Rating: 9/10\n\nExcellent flat surfaces and wide paths. The Monorail is fully accessible with elevators at every station.",
+                        IdealDuration =
+                            "3 to 4 Days (1 day for TDL, 2 days for TDS due to Fantasy Springs, 1 day for rest/shopping).",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 68,
+                    MinCost = 49,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = disneyCatIds,
+                    TagIds = disneyTagIds,
+                },
+                // 17. Akihabara
+                new DestinationDto
+                {
+                    DestinationName = "Akihabara",
+                    DestinationImage =
+                        "https://wangq4yhmf94epv8.public.blob.vercel-storage.com/akihabara.jpg",
+                    Description = new DescriptionJsonDto
+                    {
+                        Overview =
+                            "Commonly known as Akiba, Akihabara is Tokyo's vibrant \"Electric Town.\" Historically a post-WWII black market for radio parts, it evolved into a global tech showcase before transforming into the spiritual heart of Otaku culture. Today, it is a dense neon jungle where massive electronics retailers like Yodobashi Camera stand alongside multi-story shrines dedicated to anime, manga, and retro gaming. It is the birthplace of the Maid Café phenomenon and a primary stage for Japan's idol culture.\n\nWhat to Do:\n\nElectronics Hunting: Visit Yodobashi Camera for the latest tech or dive into the tiny stalls of Akihabara Radio Centre for niche circuit parts.\n\nOtaku Pilgrimage: Browse the 10 floors of Radio Kaikan for figurines and collectibles, or explore Mandarake for rare, vintage manga.\n\nRetro Gaming: Visit Super Potato to find every console ever made and play classic arcade games on the top floor.\n\nMaid Cafés: Experience a unique subculture at @Home Cafe or Maidreamin, where servers treat you as \"master\" of the house.\n\nGachapon Craze: Spend your loose change at Akihabara Gachapon Hall, which houses hundreds of capsule toy machines.",
+                        Directions =
+                            "Best Station: Akihabara Station (JR Yamanote, Keihin-Tohoku, Sobu Lines; Hibiya Subway; Tsukuba Express).\n\nSecondary Station: Suehirocho Station (Ginza Line) for the northern end of the district.\n\nFrom Tokyo Station: 3 minutes via JR Yamanote Line (¥160).\n\nAddress for Taxi: English: Akihabara Station, Sotokanda, Chiyoda City, Tokyo. Japanese: 千代田区外神田 (秋葉原駅)",
+                        WhatToKnow =
+                            "Tax-Free Shopping: Most major stores (Don Quijote, Laox, Sofmap) offer 10% tax-free shopping for tourists. Keep your passport on you to claim the discount at the register.\n\nVoltage Warning: Japanese electronics run on 100V. While many modern devices are dual-voltage, always check the label before buying high-power appliances for use back home.\n\nEtiquette: Always ask permission before photographing cosplayers or maid café staff on the street.\n\nPro-Tip: Looking for the cheapest way to eat like a local? Head to the \"vending machine corner\" for a can of hot Oden—an Akihabara staple for busy otaku on the go!",
+                        ThingsToBeWaryOf =
+                            "Maid Café \"Touts\": Avoid aggressive promoters on the street who don't clearly list their \"cover charge\" (nyuteryo). Stick to well-known chains to avoid hidden fees.\n\nThe \"Tourist Trap\" Markup: Shops on the main road are often pricier. For better prices on used goods, walk 2–3 blocks into the side alleys.\n\nSundays: While the pedestrian street is great, it is also the most crowded time for shops and restaurants.",
+                        LocalPerspective =
+                            "The Pedestrian Paradise: On Sunday afternoons, the main thoroughfare (Chuo Dori) closes to cars. It is the best time for photography and soaking in the atmosphere.\n\nHidden Gems: The best deals on used figures are often in \"Rental Showcases\" (small glass boxes rented by individuals) in the side streets.\n\nThe 160¥ Advantage: With the Yen at 160 to $1, retro games and high-end figurines are significantly more affordable for USD holders in 2026.\n\nEvolving Identity: The district shifted from household appliances to home computers in the 1980s, which attracted the \"computer nerds\" who eventually formed the modern otaku base.\n\nSunday Pedestrians: On Sundays, the main thoroughfare, Chuo Dori, is closed to car traffic from 13:00 to 18:00 (17:00 in winter), allowing for easy strolling.",
+                        HiddenCost =
+                            "Maid Café Fees: Expect a cover charge (usually ¥600–¥1,000) in addition to the mandatory one-drink minimum.\n\nArcade Addiction: Modern \"Crane Games\" (UFO catchers) are designed to be difficult; it's easy to drop $20–$30 chasing a single prize.\n\nTheater Tickets: Shows at the AKB48 Theatre typically cost between 2,400 and 3,400 yen.",
+                        NearbyComplements = new List<string>
+                        {
+                            "Kanda Myojin Shrine: A beautiful, tech-friendly shrine nearby where you can buy charms to protect your electronic devices.",
+                            "mAAch ecute Kanda Manseibashi: A stylish shopping mall built into an old brick railway viaduct over the river.",
+                            "Ochanomizu: Nearby neighborhood known for its high concentration of musical instrument shops and bookstores.",
+                        },
+                        BestTimeToVisit =
+                            "Sundays 1:00 PM – 5:00 PM: For the car-free experience.\n\nWeeknight Evenings: To see the neon lights at their most impressive without the massive weekend crowds.",
+                        crowdLevel =
+                            "Crowd Level: 9/10 (High). Particularly intense on weekends and during the Sunday pedestrian hours.\n\n6/10 (Weekday mornings)",
+                        Accessibility =
+                            "Rating: 8/10\n\nMost modern buildings have elevators, but the famous \"Radio Centre\" stalls and older hobby shops have very narrow aisles that are difficult for wheelchairs.",
+                        IdealDuration =
+                            "4 to 6 Hours for a general visit; a full day if you are a serious collector or hobbyist.",
+                    },
+                    BestPeriodToVisit = new List<TravelPeriod>
+                    {
+                        TravelPeriod.AprToJun,
+                        TravelPeriod.OctToDec,
+                    },
+                    MaxCost = 100,
+                    MinCost = 5,
+                    SafetyLevel = 10,
+                    TimeZone = "Japan Standard Time",
+                    CountryId = japanCountryId,
+                    CityIds = tokyoCityIds,
+                    LanguageIds = japanLangIds,
+                    CurrencyIds = japanCurrencyId,
+                    CategoryIds = akihabaraCatIds,
+                    TagIds = akihabaraTagIds,
+                },
+            ];
+
+            var newDestinationList = tokyoDestinationList
                 .Select(destination =>
                 {
                     if (

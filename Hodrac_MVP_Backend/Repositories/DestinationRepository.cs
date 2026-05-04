@@ -59,35 +59,36 @@ namespace Hodrac_MVP_Backend.Repositories
 
         public async Task<ClientDestinationDto?> GetDestinationById(Guid destinationId)
         {
-            var destination = await _context.Destinations.AsNoTracking().Where(d => d.DestinationId == destinationId).Select(destination => new ClientDestinationDto
-            {
-                DestinationId = destination.DestinationId,
-                DestinationName = destination.DestinationName,
-                DestinationImage = destination.DestinationImage,
-                Description = destination.Description,
-                BestPeriodToVisit = destination.BestPeriodToVisit.ToList(),
-                CostRange = $"{destination.MinCost}-{destination.MaxCost}",
-                SafetyLevel = destination.SafetyLevel,
-                TimeZone = destination.TimeZone,
-                CountryName = destination.Country.CountryName,
-                Tags = destination.DestinationTags.Select(dt => dt.Tag.TagName).ToList(),
-                Categories = destination
+            var destination = await _context
+                .Destinations.AsNoTracking()
+                .Where(d => d.DestinationId == destinationId)
+                .Select(destination => new ClientDestinationDto
+                {
+                    DestinationId = destination.DestinationId,
+                    DestinationName = destination.DestinationName,
+                    DestinationImage = destination.DestinationImage,
+                    Description = destination.Description,
+                    BestPeriodToVisit = destination.BestPeriodToVisit.ToList(),
+                    CostRange = $"{destination.MinCost}-{destination.MaxCost}",
+                    SafetyLevel = destination.SafetyLevel,
+                    TimeZone = destination.TimeZone,
+                    CountryName = destination.Country.CountryName,
+                    Tags = destination.DestinationTags.Select(dt => dt.Tag.TagName).ToList(),
+                    Categories = destination
                         .DestinationCategories.Select(dc => dc.Category.CategoryName)
                         .ToList(),
-                Cities = destination.DestinationCities.Select(dc => dc.City.CityName).ToList(),
-                Languages = destination
+                    Cities = destination.DestinationCities.Select(dc => dc.City.CityName).ToList(),
+                    Languages = destination
                         .DestinationLanguages.Select(dl => dl.Language.LanguageName)
                         .ToList(),
-                Currencies = destination
+                    Currencies = destination
                         .DestinationCurrencies.Select(dl => dl.Currency.CurrencyName)
                         .ToList(),
-            }).FirstOrDefaultAsync();
+                })
+                .FirstOrDefaultAsync();
 
             return destination;
-           
-                
         }
-       
 
         public async Task<List<ClientDestinationDto>> GetDestinationByQuery(
             DestinationQueryDto query
